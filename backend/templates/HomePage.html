@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hant">
+    <head>
+        <meta charset="utf-8">
+        <!--兼容ie-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Paws</title>
+
+        <meta name="description" content="Homepage of 'Paws'">
+        <meta name="author" content="Intion Lee">
+
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!--導航列-->
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="http://127.0.0.1:8000/Paws/HomePage">首頁</a>
+                        </li>
+                        <!--下拉選單-->
+                        <li class="dropdown pull-right">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="http://127.0.0.1:8000/Paws/Login">登入</a>
+                                </li>
+                                <li>
+                                    <a href="http://127.0.0.1:8000/Paws/SignUp">註冊</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12" id="div-logo">
+                    <img class="center" id="logo" alt="Logo Image Of Paws" src="/static/images/logo.png">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="button-list center">
+                        <li>
+                            <a href="http://127.0.0.1:8000/Paws/FindMaster"><button class="btn btn-default">拾獲寵物</button></a>
+                        </li>
+                        <li>
+                            <a href="http://127.0.0.1:8000/Paws/FindPet"><button class="btn btn-default">尋找寵物</button></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/scripts.js"></script>
+    </body>
+</html>

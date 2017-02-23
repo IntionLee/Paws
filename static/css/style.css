@@ -1,0 +1,53 @@
+/* Empty CSS file for your own CSS */
+body {
+    margin: 10px;
+    margin-bottom: 20px;
+}
+
+.body-main {
+    margin-top: 50px;
+}
+
+#div-logo {
+    height: 500px;
+    position: relative;
+}
+
+#logo {
+    height: 431px;
+}
+
+#logo-small {
+    height: 40px;
+}
+
+#login-form {
+    width: 300px;
+}
+
+#waiting-list-window {
+    height: 300px;
+}
+
+.center {
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    margin: auto;
+}
+
+.button-list {
+    width: 100px;
+    height: 40px;
+    position: relative;
+    padding: 0;
+    list-style: none;
+}
+
+.button-list li button {
+    width: 120px;
+    margin-top: 10px;
+}
+
+.btn-right {
+    float: right;
+}
