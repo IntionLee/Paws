@@ -27,15 +27,30 @@
                         </li>
                         <!--下拉選單-->
                         <li class="dropdown pull-right">
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="http://127.0.0.1:8000/Paws/Login">登入</a>
-                                </li>
-                                <li>
-                                    <a href="http://127.0.0.1:8000/Paws/SignUp">註冊</a>
-                                </li>
-                            </ul>
+                            {% if user %}
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">歡迎用戶&nbsp;&nbsp;<span id="base_name">{{ user.myuser.pubname }}</span></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="http://127.0.0.1:8000/Paws/Logout">登出</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://127.0.0.1:8000/Paws/ChangeAccount">會員資料修改</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://127.0.0.1:8000/Paws/ChangePassword">會員密碼修改</a>
+                                    </li>
+                                </ul>
+                            {% else %}
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="http://127.0.0.1:8000/Paws/Login">登入</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://127.0.0.1:8000/Paws/SignUp">註冊</a>
+                                    </li>
+                                </ul>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>
@@ -46,35 +61,34 @@
                     <img class="img-responsive center-block" id="logo" alt="Logo Image Of Paws" src="/static/images/logo.png">
                 </div>
                 <div class="col-md-6 body-main">
+                    {% if state == 'success' %}
+                        <div class="well">
+                            <h4 class="text-success text-center">資料修改成功</h4>
+                        </div>
+                    {% endif %}
                     <form class="form-horizontal" action="#" method="post">
+                        {% csrf_token %}
                         <fieldset>
                             <legend>會員資料修改</legend>
 
                             <div class="form-group">
                                 <label for="input_name" class="col-sm-3 control-label">姓名：</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="input_name">
+                                    <input type="text" class="form-control" name="name" id="input_name">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="input_pubname" class="col-sm-3 control-label">暱稱：</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="input_pubname">
+                                    <input type="text" class="form-control" name="pubname" id="input_pubname">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="input_phonenumber" class="col-sm-3 control-label">連絡電話：</label>
                                 <div class="col-sm-6">
-                                    <input type="tel" class="form-control" id="input_phonenumber">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="input_email" class="col-sm-3 control-label">Email：</label>
-                                <div class="col-sm-6">
-                                    <input type="email" class="form-control" id="input_email">
+                                    <input type="tel" class="form-control" name="phone" id="input_phonenumber">
                                 </div>
                             </div>
 

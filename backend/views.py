@@ -5,55 +5,124 @@ from django.shortcuts import render
 
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
+from django.contrib.auth.decorators import user_passes_test, login_required
+from django.contrib.auth.models import User
+from django.contrib import auth
 from django.template import RequestContext
+from django.core.urlresolvers import reverse
 from django import forms
-from backend.models import  User
-
-'''class UserForm(forms.Form):
-	username = forms.CharField(Label = '帳號', max_length=50)
-	password = forms.CharField(Label = '密碼', max_length=50)
-	name = forms.CharField(label = '姓名', max_length=50)
-	pubname = forms.CharField(label = '暱稱', max_length=50)
-	phone = forms.CharField(Label = '電話', max_length=50)
-	email = forms.EmailField(Label = '電子信箱', max_length=200)'''
+from backend.models import  MyUser
 
 def HomePage(req):
-	return render_to_response('HomePage.html' ,{})
+	user = req.user if req.user.is_authenticated() else None
+	content = {
+        'user': user,
+    }
+	return render(req, 'HomePage.html', content)
 
 def SignUp(req):
-	return render_to_response('SignUp.html' ,{})
+	if req.user.is_authenticated():
+		return HttpResponseRedirect(reverse('HomePage'))
+	state = None
+	if req.method == 'POST':
+		username = req.POST.get('username', '')
+		password = req.POST.get('password', '')
+		password2 = req.POST.get('password2', '')
+
+		if password != password2:
+			state = 'repeat_error'
+		else:
+			if User.objects.filter(username = username):
+				state = 'user_exist'
+			else:
+				new_user = User.objects.create_user(username=username, password=password, email=req.POST.get('email', ''))
+				new_user.save()
+				new_my_user = MyUser(user=new_user, name=req.POST.get('name', ''), pubname=req.POST.get('pubname', ''), phone=req.POST.get('phone', ''))
+				new_my_user.save()
+				state = 'success'
+	content = {
+	    'state': state,
+	    'user': None
+	}
+	return render(req, 'SignUp.html', content)
 
 def Login(req):
-	return render_to_response('Login.html' ,{})
+	if req.user.is_authenticated():
+		return HttpResponseRedirect(reverse('HomePage'))
+	state = None
+	if req.method == 'POST':
+		username = req.POST.get('username', '')
+		password = req.POST.get('password', '')
+		user = auth.authenticate(username=username, password=password)
+		if user is not None:
+			auth.login(req, user)
+			return HttpResponseRedirect(reverse('HomePage'))
+		else:
+			state = 'not_exist_or_password_error'
+	content = {
+		'state': state,
+		'user': None
+	}
+	return render(req, 'Login.html', content)
+
+def Logout(req):
+	auth.logout(req)
+	return HttpResponseRedirect(reverse('HomePage'))
+
+def ChangeAccount(req):
+	if req.user.is_authenticated():
+		user = req.user
+		state = None
+		if req.method == 'POST':
+			name = req.POST.get('name', '')
+			pubname = req.POST.get('pubname', '')
+			phone = req.POST.get('phone', '')
+			myuser = MyUser.objects.get(user = user)
+			if name != "":
+				myuser.name = name
+				myuser.save()
+			elif pubname != "":
+				myuser.pubname = pubname
+				myuser.save()
+			elif phone != "":
+				myuser.phone = phone
+				myuser.save()
+			state = 'success'
+	else:
+		return HttpResponseRedirect(reverse('HomePage'))
+	content = {
+		'state': state,
+		'user': user
+	}
+	return render(req, 'ChangeAccount.html', content)
+
+def ChangePassword(req):
+	if req.user.is_authenticated():
+		user = req.user
+		state = None
+		if req.method == 'POST':
+			password = req.POST.get('password', '')
+			newpassword = req.POST.get('newpassword', '')
+			newpassword2 = req.POST.get('newpassword2', '')
+			if user.check_password(password):
+				if newpassword != newpassword2:
+					state = 'repeat_error'
+				else:
+					user.set_password(newpassword)
+					user.save()
+					state = 'success'
+			else:
+				state = 'password_error'
+	else:
+		return HttpResponseRedirect(reverse('HomePage'))
+	content = {
+		'state': state,
+		'user': user
+	}
+	return render(req, 'ChangePassword.html', content)
 
 def FindPet(req):
 	return render_to_response('FindPet.html' ,{})
 
 def FindMaster(req):
 	return render_to_response('FindMaster.html' ,{})
-
-def ChangeAccount(req):
-	return render_to_response('ChangeAccount.html' ,{})
-
-def ChangePassword(req):
-	return render_to_response('ChangePassword.html' ,{})
-
-
-#註冊
-'''def SignUp(req):
-	if req.method == 'POST':
-		uf = UserForm(req.POST)
-		if uf.is_valid():
-			#获得表单数据
-			username = uf.cleaned_data['username']
-			password = uf.cleaned_data['password']
-			name = uf.cleaned_data['name']
-			pubname = uf.cleaned_data['pubname']
-			phone = uf.cleaned_data['phone']
-			email = uf.cleaned_data['email']
-			#添加到数据库
-			User.objects.create(username= username, password=password, name = name, pubname = pubname, phone = phone, email = email)
-			return HttpResponse('regist success!!')
-		else:
-			uf = UserForm()
-		return render_to_response('SignUp.html',{'uf':uf}, )'''

@@ -27,6 +27,20 @@
                         </li>
                         <!--下拉選單-->
                         <li class="dropdown pull-right">
+                            {% if user %}
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">歡迎用戶&nbsp;&nbsp;<span id="base_name">{{ user.myuser.pubname }}</span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="http://127.0.0.1:8000/Paws/Logout">登出</a>
+                                </li>
+                                <li>
+                                    <a href="http://127.0.0.1:8000/Paws/ChangeAccount">會員資料修改</a>
+                                </li>
+                                <li>
+                                    <a href="http://127.0.0.1:8000/Paws/ChangePassword">會員密碼修改</a>
+                                </li>
+                            </ul>
+                            {% else %}
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
                             <ul class="dropdown-menu">
                                 <li>
@@ -36,6 +50,7 @@
                                     <a href="http://127.0.0.1:8000/Paws/SignUp">註冊</a>
                                 </li>
                             </ul>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>
