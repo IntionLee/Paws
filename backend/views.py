@@ -122,7 +122,25 @@ def ChangePassword(req):
 	return render(req, 'ChangePassword.html', content)
 
 def FindPet(req):
-	return render_to_response('FindPet.html' ,{})
+	if req.user.is_authenticated():
+		user = req.user
+		state = None
+	else:
+		return HttpResponseRedirect(reverse('HomePage'))
+	content = {
+		'state': state,
+		'user': user
+	}
+	return render(req, 'FindPet.html', content)
 
 def FindMaster(req):
-	return render_to_response('FindMaster.html' ,{})
+	if req.user.is_authenticated():
+		user = req.user
+		state = None
+	else:
+		return HttpResponseRedirect(reverse('HomePage'))
+	content = {
+		'state': state,
+		'user': user
+	}
+	return render(req, 'FindMaster.html', content)

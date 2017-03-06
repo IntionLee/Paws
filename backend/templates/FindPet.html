@@ -72,19 +72,27 @@
                                     <input type="file" name="petimg" id="input_petimg">
                                 </div>
                             </div>
-                            
 
                             <div class="form-group">
                                 <label for="input_animal" class="col-sm-3 control-label">寵物類別：</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="animal" id="input_animal">
+                                    <select class="form-control" name="animal" id="input_animal"> 
+                                        <option value="0" selected>請選擇</option>
+                                        <option value="1" >狗</option>
+                                        <option value="2">貓</option>
+                                        <option value="3">鳥</option>
+                                        <option value="4">倉鼠</option>
+                                        <option value="5">其他動物</option>
+                                    </select>
+                                    <input style="display: none;" type="text" class="form-control" placeholder="請填寫寵物類別" name="animal2" id="input_animal2">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="input_PetType" class="col-sm-3 control-label">寵物品種：</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="pettype" id="input_PetType">
+                                    <select class="form-control" name="pettype" id="input_PetType"></select>
+                                    <input style="display: none;" type="text" class="form-control" placeholder="請填寫寵物品種" name="pettype2" id="input_PetType2">
                                 </div>
                             </div>
 
@@ -107,6 +115,18 @@
                                 <div class="col-sm-6">
                                     <input type="radio" name="petgender" value="male" />公   
                                     <input type="radio" name="petgender" value="female" />母
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">寵物體型：</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="size" id="input_size"> 
+                                        <option value="0">請選擇</option>
+                                        <option value="1">小型 (0-10公斤)</option>
+                                        <option value="2">中型 (10-20公斤)</option>
+                                        <option value="3">中型 (20公斤以上)</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -191,6 +211,80 @@
                 startView: 2,
                 minView: 2,
                 forceParse: 0
+            });
+            
+            $(document).ready(function(){
+                $('#input_animal').val('0')
+            });
+
+            $("#input_animal").change(function(){
+                switch (parseInt($(this).val())){
+                    case 0: 
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_animal2").style.display="none";
+                        document.getElementById("input_PetType2").style.display="none";
+                        document.getElementById("input_PetType").style.display="";
+                        break;
+                    case 1: 
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_animal2").style.display="none";
+                        document.getElementById("input_PetType2").style.display="none";
+                        document.getElementById("input_PetType").style.display="";
+                        var array = ["請選擇", "臘腸", "柴犬", "柯基", "巴哥", "比熊", "西施", "杜賓", "沙皮", "秋田", "貴賓", "獒犬", "喜樂蒂", "哈士奇",
+                        "米克斯", "拉不拉多", "黃金獵犬", "馬爾濟斯", "阿拉斯加", "中華田園", "其他"];
+                        //利用each遍歷array中的值並將每個值新增到input_PetType中
+                        $.each(array, function(i, val) {
+                            $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
+                        });
+                        break;
+                    case 2: 
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_animal2").style.display="none";
+                        document.getElementById("input_PetType2").style.display="none";
+                        document.getElementById("input_PetType").style.display="";
+                        var array = ["請選擇", "波斯", "暹羅", "布偶", "折耳", "米克斯", "美國短毛", "英國短毛", "挪威森林", "北美洲", "南極洲", "中華田園", "其他"];
+                        //利用each遍歷array中的值並將每個值新增到input_PetType中
+                        $.each(array, function(i, val) {
+                            $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
+                        });      
+                        break;
+                    case 3: 
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_animal2").style.display="none";
+                        document.getElementById("input_PetType2").style.display="none";
+                        document.getElementById("input_PetType").style.display="";
+                        var array = ["請選擇", "鴿子", "文鳥", "十姊妹", "綠繡眼", "和尚鸚鵡", "雞尾鸚鵡", "虎皮鸚鵡", "折衷鸚鵡", "太平洋鸚哥", "其他"];
+                        //利用each遍歷array中的值並將每個值新增到input_PetType中
+                        $.each(array, function(i, val) {
+                            $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
+                        });      
+                        break;
+                    case 4: 
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_animal2").style.display="none";
+                        document.getElementById("input_PetType2").style.display="none";
+                        document.getElementById("input_PetType").style.display="";
+                        var array = ["請選擇", "黃金鼠", "一線鼠", "三線鼠", "老公公鼠", "其他"];
+                        //利用each遍歷array中的值並將每個值新增到input_PetType中
+                        $.each(array, function(i, val) {
+                            $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
+                        });      
+                        break;
+                    case 5: 
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_animal2").style.display="";
+                        document.getElementById("input_PetType").style.display="none";
+                        document.getElementById("input_PetType2").style.display="";
+                        break;
+                }
+            });
+
+            $("#input_PetType").change(function(){
+                if ($(this).val() == "其他"){
+                    document.getElementById("input_PetType2").style.display="";
+                } else {
+                    document.getElementById("input_PetType2").style.display="none";
+                }
             });
         </script>
     </body>
