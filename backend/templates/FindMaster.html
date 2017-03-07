@@ -62,8 +62,14 @@
                     <img class="img-responsive center-block" id="logo" alt="Logo Image Of Paws" src="/static/images/logo.png">
                 </div>
                 <div class="col-md-6 body-main">
-                    <form class="form-horizontal" action="#" method="post">
-                        <fieldset>
+                    {% if state == 'success' %}
+                        <div class="well">
+                            <h4 class="text-success text-center">發佈成功</h4>
+                        </div>
+                    {% endif %}
+                    <form class="form-horizontal" action="#" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!--fieldset-->
                             <legend>拾獲寵物資訊</legend>
 
                             <div class="form-group">
@@ -77,12 +83,12 @@
                                 <label for="input_animal" class="col-sm-3 control-label">寵物類別：</label>
                                 <div class="col-sm-6">
                                     <select class="form-control" name="animal" id="input_animal"> 
-                                        <option value="0">請選擇</option>
-                                        <option value="1">狗</option>
-                                        <option value="2">貓</option>
-                                        <option value="3">鳥</option>
-                                        <option value="4">倉鼠</option>
-                                        <option value="5">其他動物</option>
+                                        <option value="請選擇" selected>請選擇</option>
+                                        <option value="狗" >狗</option>
+                                        <option value="貓">貓</option>
+                                        <option value="鳥">鳥</option>
+                                        <option value="倉鼠">倉鼠</option>
+                                        <option value="其他動物">其他動物</option>
                                     </select>
                                     <input style="display: none;" type="text" class="form-control" placeholder="請填寫寵物類別" name="animal2" id="input_animal2">
                                 </div>
@@ -113,15 +119,19 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">寵物性別：</label>
                                 <div class="col-sm-6">
-                                    <input type="radio" name="petgender" value="male" />公   
-                                    <input type="radio" name="petgender" value="female" />母
+                                    <select class="form-control" name="petgender" id="input_PetGender"> 
+                                        <option value="0">請選擇</option>
+                                        <option value="1">公</option>
+                                        <option value="2">母</option>
+                                        <option value="3">不清楚</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">寵物體型：</label>
                                 <div class="col-sm-6">
-                                    <select class="form-control" id="input_size"> 
+                                    <select class="form-control" name="size" id="input_size"> 
                                         <option value="0">請選擇</option>
                                         <option value="1">小型 (0-10公斤)</option>
                                         <option value="2">中型 (10-20公斤)</option>
@@ -133,8 +143,12 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">是否結扎：</label>
                                 <div class="col-sm-6">
-                                    <input type="radio" name="ligation" value="yes" />是    
-                                    <input type="radio" name="ligation" value="no" />否
+                                    <select class="form-control" name="ligation" id="input_ligation"> 
+                                        <option value="0">請選擇</option>
+                                        <option value="1">是</option>
+                                        <option value="2">否</option>
+                                        <option value="3">不清楚</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -156,11 +170,11 @@
                                 <label class="col-sm-3 control-label">拾獲日期：</label>
                                 <div class="col-sm-6">
                                     <div class="input-group date form_date col-md-8" data-date="" data-date-format="yyyy-mm-dd" data-link-field="input_time" data-link-format="yyyy-mm-dd">
-                                        <input class="form-control" size="16" type="text" name="time" value="" readonly>
+                                        <input class="form-control" size="16" type="text" value="" readonly>
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
-                                    <input type="hidden" id="input_time" value="" /><br/>
+                                    <input type="hidden" id="input_time" name="time" value="" /><br/>
                                 </div>
                             </div>
 
@@ -190,7 +204,7 @@
                                     <button type="submit" class="btn btn-default">提交</button>
                                 </div>
                             </div>
-                        </fieldset>
+                        <!--/fieldset-->
                     </form>
                 </div>
             </div>
@@ -215,18 +229,20 @@
             });
             
             $(document).ready(function(){
-                $('#input_animal').val('0')
+                $('#input_animal').val('請選擇')
+                $('#input_PetGender').val('0')
+                $('#input_size').val('0')
             });
 
             $("#input_animal").change(function(){
-                switch (parseInt($(this).val())){
-                    case 0: 
+                switch ($(this).val()){
+                    case "請選擇": 
                         $("#input_PetType option").remove();
                         document.getElementById("input_animal2").style.display="none";
                         document.getElementById("input_PetType2").style.display="none";
                         document.getElementById("input_PetType").style.display="";
                         break;
-                    case 1: 
+                    case "狗": 
                         $("#input_PetType option").remove();
                         document.getElementById("input_animal2").style.display="none";
                         document.getElementById("input_PetType2").style.display="none";
@@ -238,7 +254,7 @@
                             $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
                         });
                         break;
-                    case 2: 
+                    case "貓": 
                         $("#input_PetType option").remove();
                         document.getElementById("input_animal2").style.display="none";
                         document.getElementById("input_PetType2").style.display="none";
@@ -249,7 +265,7 @@
                             $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
                         });      
                         break;
-                    case 3: 
+                    case "鳥": 
                         $("#input_PetType option").remove();
                         document.getElementById("input_animal2").style.display="none";
                         document.getElementById("input_PetType2").style.display="none";
@@ -260,7 +276,7 @@
                             $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
                         });      
                         break;
-                    case 4: 
+                    case "倉鼠": 
                         $("#input_PetType option").remove();
                         document.getElementById("input_animal2").style.display="none";
                         document.getElementById("input_PetType2").style.display="none";
@@ -271,7 +287,7 @@
                             $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
                         });      
                         break;
-                    case 5: 
+                    case "其他動物": 
                         $("#input_PetType option").remove();
                         document.getElementById("input_animal2").style.display="";
                         document.getElementById("input_PetType").style.display="none";

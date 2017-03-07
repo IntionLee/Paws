@@ -11,7 +11,9 @@ from django.contrib import auth
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django import forms
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from backend.models import  MyUser
+from backend.models import  MyLostNotice
 
 def HomePage(req):
 	user = req.user if req.user.is_authenticated() else None
@@ -125,6 +127,27 @@ def FindPet(req):
 	if req.user.is_authenticated():
 		user = req.user
 		state = None
+		if req.method == 'POST':
+			flag = 0
+			petimg = req.FILES.get('petimg')
+			animal = req.POST.get('animal', '')
+			pettype = req.POST.get('pettype', '')
+			petid = req.POST.get('petid', '')
+			petcolor = req.POST.get('petcolor', '')
+			petgender = req.POST.get('petgender', 0)
+			size = req.POST.get('size', 0)
+			ligation = req.POST.get('ligation', 0)
+			petfeature = req.POST.get('petfeature', '')
+			location = req.POST.get('location', '')
+			time = req.POST.get('time', '')
+			contactname = req.POST.get('contactname', '')
+			phonenumber = req.POST.get('phonenumber', '')
+			email = req.POST.get('email', '')
+
+			new_lost_notice = MyLostNotice(flag=flag, petimg=petimg, animal=animal, pettype=pettype, petid=petid, petcolor=petcolor, petgender=petgender, size=size
+				, ligation=ligation, petfeature=petfeature, location=location, time=time, contactname=contactname, phonenumber=phonenumber)
+			new_lost_notice.save()
+			state = 'success'
 	else:
 		return HttpResponseRedirect(reverse('HomePage'))
 	content = {
@@ -137,6 +160,27 @@ def FindMaster(req):
 	if req.user.is_authenticated():
 		user = req.user
 		state = None
+		if req.method == 'POST':
+			flag = 1
+			petimg = req.FILES.get('petimg')
+			animal = req.POST.get('animal', '')
+			pettype = req.POST.get('pettype', '')
+			petid = req.POST.get('petid', '')
+			petcolor = req.POST.get('petcolor', '')
+			petgender = req.POST.get('petgender', 0)
+			size = req.POST.get('size', 0)
+			ligation = req.POST.get('ligation', 0)
+			petfeature = req.POST.get('petfeature', '')
+			location = req.POST.get('location', '')
+			time = req.POST.get('time', '')
+			contactname = req.POST.get('contactname', '')
+			phonenumber = req.POST.get('phonenumber', '')
+			email = req.POST.get('email', '')
+
+			new_lost_notice = MyLostNotice(flag=flag, petimg=petimg, animal=animal, pettype=pettype, petid=petid, petcolor=petcolor, petgender=petgender, size=size
+				, ligation=ligation, petfeature=petfeature, location=location, time=time, contactname=contactname, phonenumber=phonenumber, email=email)
+			new_lost_notice.save()
+			state = 'success'
 	else:
 		return HttpResponseRedirect(reverse('HomePage'))
 	content = {
@@ -144,3 +188,28 @@ def FindMaster(req):
 		'user': user
 	}
 	return render(req, 'FindMaster.html', content)
+
+def ListAllPost(req):
+	if req.user.is_authenticated():
+		user = req.user
+		state = None
+		postlist = MyLostNotice.objects.all()
+		paginator = Paginator(postlist, 5)
+		page = req.GET.get('page')
+		try:
+			postlist = paginator.page(page)
+		except PageNotAnInteger:
+			postlist = paginator.page(1)
+		except EmptyPage:
+			postlist = paginator.page(paginator.num_pages)
+	else:
+		return HttpResponseRedirect(reverse('HomePage'))
+	content = {
+		'user': user,
+		'postlist': postlist,
+	}
+	return render(req, 'ListAllPost.html', content)
+
+def DeleteAllPost(req):
+	MyLostNotice.objects.all().delete() 
+	return HttpResponseRedirect(reverse('HomePage'))

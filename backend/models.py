@@ -14,3 +14,23 @@ class MyUser(models.Model):
 
 	def __unicode__(self):
 		return self.user.username
+
+class MyLostNotice(models.Model):
+	flag = models.IntegerField(default=0)
+	petimg = models.ImageField(upload_to='image')
+	animal = models.CharField(max_length=50)
+	pettype = models.CharField(max_length=50)
+	petid = models.CharField(max_length=50)
+	petcolor = models.CharField(max_length=50)
+	petgender = models.IntegerField(default=0)
+	size = models.IntegerField(default=0)
+	ligation = models.IntegerField(default=0)
+	petfeature = models.CharField(max_length=250)
+	location = models.CharField(max_length=50)
+	time = models.DateField(default=0)
+	contactname = models.CharField(max_length=50)
+	phonenumber = models.CharField(max_length=50)
+	email = models.EmailField(max_length=100)
+
+	class META:
+ 		ordering = ['-time']

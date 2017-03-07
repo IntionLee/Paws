@@ -127,3 +127,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'backend/templates'),
     os.path.join(HERE, 'static/'), 
 )
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
+
+MEDIA_URL = '/media/'
