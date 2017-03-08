@@ -128,15 +128,22 @@ def FindPet(req):
 		user = req.user
 		state = None
 		if req.method == 'POST':
-			flag = 0
+			if req.POST.get('animal', '') == u'其他動物':
+				animal = req.POST.get('animal', '')+'-'+req.POST.get('animal2', '')
+				pettype = req.POST.get('pettype', '')+'-'+req.POST.get('pettype2', '')
+			elif req.POST.get('pettype', '') == u'其他':
+				animal = req.POST.get('animal', '')
+				pettype = req.POST.get('pettype', '')+'-'+req.POST.get('pettype2', '')
+			else:
+				animal = req.POST.get('animal', '')
+				pettype = req.POST.get('pettype', '')
+			flag = 1
 			petimg = req.FILES.get('petimg')
-			animal = req.POST.get('animal', '')
-			pettype = req.POST.get('pettype', '')
 			petid = req.POST.get('petid', '')
 			petcolor = req.POST.get('petcolor', '')
-			petgender = req.POST.get('petgender', 0)
-			size = req.POST.get('size', 0)
-			ligation = req.POST.get('ligation', 0)
+			petgender = req.POST.get('petgender', '')
+			size = req.POST.get('size', '')
+			ligation = req.POST.get('ligation', '')
 			petfeature = req.POST.get('petfeature', '')
 			location = req.POST.get('location', '')
 			time = req.POST.get('time', '')
@@ -145,7 +152,7 @@ def FindPet(req):
 			email = req.POST.get('email', '')
 
 			new_lost_notice = MyLostNotice(flag=flag, petimg=petimg, animal=animal, pettype=pettype, petid=petid, petcolor=petcolor, petgender=petgender, size=size
-				, ligation=ligation, petfeature=petfeature, location=location, time=time, contactname=contactname, phonenumber=phonenumber)
+				, ligation=ligation, petfeature=petfeature, location=location, time=time, contactname=contactname, phonenumber=phonenumber, email=email)
 			new_lost_notice.save()
 			state = 'success'
 	else:
@@ -161,15 +168,22 @@ def FindMaster(req):
 		user = req.user
 		state = None
 		if req.method == 'POST':
+			if req.POST.get('animal', '') == u'其他動物':
+				animal = req.POST.get('animal', '')+'-'+req.POST.get('animal2', '')
+				pettype = req.POST.get('pettype', '')+'-'+req.POST.get('pettype2', '')
+			elif req.POST.get('pettype', '') == u'其他':
+				animal = req.POST.get('animal', '')
+				pettype = req.POST.get('pettype', '')+'-'+req.POST.get('pettype2', '')
+			else:
+				animal = req.POST.get('animal', '')
+				pettype = req.POST.get('pettype', '')
 			flag = 1
 			petimg = req.FILES.get('petimg')
-			animal = req.POST.get('animal', '')
-			pettype = req.POST.get('pettype', '')
 			petid = req.POST.get('petid', '')
 			petcolor = req.POST.get('petcolor', '')
-			petgender = req.POST.get('petgender', 0)
-			size = req.POST.get('size', 0)
-			ligation = req.POST.get('ligation', 0)
+			petgender = req.POST.get('petgender', '')
+			size = req.POST.get('size', '')
+			ligation = req.POST.get('ligation', '')
 			petfeature = req.POST.get('petfeature', '')
 			location = req.POST.get('location', '')
 			time = req.POST.get('time', '')

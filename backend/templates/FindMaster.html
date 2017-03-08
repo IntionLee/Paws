@@ -63,27 +63,40 @@
                 </div>
                 <div class="col-md-6 body-main">
                     {% if state == 'success' %}
-                        <div class="well">
+                        <div class="well" id="warn3">
                             <h4 class="text-success text-center">發佈成功</h4>
                         </div>
                     {% endif %}
-                    <form class="form-horizontal" action="#" method="post" enctype="multipart/form-data">
+
+                    <div style="display: none;" id="warn0" class="well">
+                        <h4 class="text-warning text-center">請填寫拾獲時間</h4>
+                    </div>
+
+                    <div style="display: none;" id="warn1" class="well">
+                        <h4 class="text-warning text-center">請填寫寵物類別及寵物品種</h4>
+                    </div>
+
+                    <div style="display: none;" id="warn2" class="well">
+                        <h4 class="text-warning text-center">請填寫寵物品種</h4>
+                    </div>
+
+                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <!--fieldset-->
                             <legend>拾獲寵物資訊</legend>
 
                             <div class="form-group">
-                                <label for="input_petimg" class="col-sm-3 control-label">寵物照片上傳：</label>
+                                <label for="input_petimg" class="col-sm-3 control-label"><font color="red">*</font> 寵物照片上傳：</label>
                                 <div class="col-sm-6">
-                                    <input type="file" name="petimg" id="input_petimg">
+                                    <input type="file" name="petimg" required id="input_petimg">
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label for="input_animal" class="col-sm-3 control-label">寵物類別：</label>
+                                <label for="input_animal" class="col-sm-3 control-label"><font color="red">*</font> 寵物類別：</label>
                                 <div class="col-sm-6">
-                                    <select class="form-control" name="animal" id="input_animal"> 
-                                        <option value="請選擇" selected>請選擇</option>
+                                    <select class="form-control" name="animal" id="input_animal" required> 
+                                        <option value="" selected disabled="true">請選擇</option>
                                         <option value="狗" >狗</option>
                                         <option value="貓">貓</option>
                                         <option value="鳥">鳥</option>
@@ -96,6 +109,7 @@
 
                             <div class="form-group">
                                 <label for="input_PetType" class="col-sm-3 control-label">寵物品種：</label>
+                                <label for="input_PetType" class="col-sm-3 control-label"><font color="red">*</font> 寵物品種：</label>
                                 <div class="col-sm-6">
                                     <select class="form-control" name="pettype" id="input_PetType"></select>
                                     <input style="display: none;" type="text" class="form-control" placeholder="請填寫寵物品種" name="pettype2" id="input_PetType2">
@@ -117,37 +131,37 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">寵物性別：</label>
+                                <label class="col-sm-3 control-label"><font color="red">*</font> 寵物性別：</label>
                                 <div class="col-sm-6">
-                                    <select class="form-control" name="petgender" id="input_PetGender"> 
-                                        <option value="0">請選擇</option>
-                                        <option value="1">公</option>
-                                        <option value="2">母</option>
-                                        <option value="3">不清楚</option>
+                                    <select class="form-control" name="petgender" id="input_PetGender" required> 
+                                        <option value="" selected disabled="true">請選擇</option>
+                                        <option value="公">公</option>
+                                        <option value="母">母</option>
+                                        <option value="不清楚">不清楚</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">寵物體型：</label>
+                                <label class="col-sm-3 control-label"><font color="red">*</font> 寵物體型：</label>
                                 <div class="col-sm-6">
-                                    <select class="form-control" name="size" id="input_size"> 
-                                        <option value="0">請選擇</option>
-                                        <option value="1">小型 (0-10公斤)</option>
-                                        <option value="2">中型 (10-20公斤)</option>
-                                        <option value="3">中型 (20公斤以上)</option>
+                                    <select class="form-control" name="size" id="input_size" required> 
+                                        <option value="" selected disabled="true">請選擇</option>
+                                        <option value="小型 (0-10公斤)">小型 (0-10公斤)</option>
+                                        <option value="中型 (10-20公斤)">中型 (10-20公斤)</option>
+                                        <option value="中型 (20公斤以上)">中型 (20公斤以上)</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">是否結扎：</label>
+                                <label class="col-sm-3 control-label"><font color="red">*</font> 是否結扎：</label>
                                 <div class="col-sm-6">
-                                    <select class="form-control" name="ligation" id="input_ligation"> 
-                                        <option value="0">請選擇</option>
-                                        <option value="1">是</option>
-                                        <option value="2">否</option>
-                                        <option value="3">不清楚</option>
+                                    <select class="form-control" name="ligation" id="input_ligation" required> 
+                                        <option value=""  selected disabled="true">請選擇</option>
+                                        <option value="是">是</option>
+                                        <option value="否">否</option>
+                                        <option value="不清楚">不清楚</option>
                                     </select>
                                 </div>
                             </div>
@@ -160,48 +174,52 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="input_location" class="col-sm-3 control-label">拾獲地點：</label>
+                                <label for="input_location" class="col-sm-3 control-label"><font color="red">*</font> 拾獲地點：</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="location" id="input_location">
+                                    <input type="text" class="form-control" name="location" id="input_location" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">拾獲日期：</label>
+                                <label class="col-sm-3 control-label"><font color="red">*</font> 拾獲日期：</label>
                                 <div class="col-sm-6">
                                     <div class="input-group date form_date col-md-8" data-date="" data-date-format="yyyy-mm-dd" data-link-field="input_time" data-link-format="yyyy-mm-dd">
                                         <input class="form-control" size="16" type="text" value="" readonly>
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
-                                    <input type="hidden" id="input_time" name="time" value="" /><br/>
+                                    <input style="display: none;" id="input_time" name="time" rule="required;"><br/>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="input_ContactName" class="col-sm-3 control-label">聯絡人：</label>
+                                <label for="input_ContactName" class="col-sm-3 control-label"><font color="red">*</font> 聯絡人：</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="contactname" id="input_ContactName">
+                                    <input type="text" class="form-control" name="contactname" id="input_ContactName" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="input_phonenumber" class="col-sm-3 control-label">聯絡電話：</label>
+                                <label for="input_phonenumber" class="col-sm-3 control-label"><font color="red">*</font> 聯絡電話：</label>
                                 <div class="col-sm-6">
-                                    <input type="tel" class="form-control" name="phonenumber" id="input_phonenumber">
+                                    <input type="tel" class="form-control" name="phonenumber" id="input_phonenumber" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="input_email" class="col-sm-3 control-label">聯絡Email：</label>
+                                <label for="input_email" class="col-sm-3 control-label"><font color="red">*</font> 聯絡Email：</label>
                                 <div class="col-sm-6">
-                                    <input type="email" class="form-control" name="email" id="input_email">
+                                    <input type="email" class="form-control" name="email" id="input_email" required>
                                 </div>
                             </div> 
 
                             <div class="form-group">
+                                    <label class="col-sm-offset-5 col-sm-6">含<font color="red">*</font>項必填</label>
+                            <div>
+
+                            <div class="form-group">
                                 <div class="col-sm-offset-3 col-sm-10">
-                                    <button type="submit" class="btn btn-default">提交</button>
+                                    <button type="submit" class="btn btn-default" id="upload">提交</button>
                                 </div>
                             </div>
                         <!--/fieldset-->
@@ -229,14 +247,16 @@
             });
             
             $(document).ready(function(){
-                $('#input_animal').val('請選擇')
-                $('#input_PetGender').val('0')
-                $('#input_size').val('0')
+                $('#input_animal').val('')
+                $('#input_PetGender').val('')
+                $('#input_size').val('')
+                $('#input_ligation').val('')
+                document.getElementById("warn3").style.display="";
             });
 
             $("#input_animal").change(function(){
                 switch ($(this).val()){
-                    case "請選擇": 
+                    case "": 
                         $("#input_PetType option").remove();
                         document.getElementById("input_animal2").style.display="none";
                         document.getElementById("input_PetType2").style.display="none";
@@ -247,7 +267,7 @@
                         document.getElementById("input_animal2").style.display="none";
                         document.getElementById("input_PetType2").style.display="none";
                         document.getElementById("input_PetType").style.display="";
-                        var array = ["請選擇", "臘腸", "柴犬", "柯基", "巴哥", "比熊", "西施", "杜賓", "沙皮", "秋田", "貴賓", "獒犬", "喜樂蒂", "哈士奇",
+                        var array = ["臘腸", "柴犬", "柯基", "巴哥", "比熊", "西施", "杜賓", "沙皮", "秋田", "貴賓", "獒犬", "喜樂蒂", "哈士奇",
                         "米克斯", "拉不拉多", "黃金獵犬", "馬爾濟斯", "阿拉斯加", "中華田園", "其他"];
                         //利用each遍歷array中的值並將每個值新增到input_PetType中
                         $.each(array, function(i, val) {
@@ -259,7 +279,7 @@
                         document.getElementById("input_animal2").style.display="none";
                         document.getElementById("input_PetType2").style.display="none";
                         document.getElementById("input_PetType").style.display="";
-                        var array = ["請選擇", "波斯", "暹羅", "布偶", "折耳", "米克斯", "美國短毛", "英國短毛", "挪威森林", "北美洲", "南極洲", "中華田園", "其他"];
+                        var array = ["波斯", "暹羅", "布偶", "折耳", "米克斯", "美國短毛", "英國短毛", "挪威森林", "北美洲", "南極洲", "中華田園", "其他"];
                         //利用each遍歷array中的值並將每個值新增到input_PetType中
                         $.each(array, function(i, val) {
                             $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
@@ -270,7 +290,7 @@
                         document.getElementById("input_animal2").style.display="none";
                         document.getElementById("input_PetType2").style.display="none";
                         document.getElementById("input_PetType").style.display="";
-                        var array = ["請選擇", "鴿子", "文鳥", "十姊妹", "綠繡眼", "和尚鸚鵡", "雞尾鸚鵡", "虎皮鸚鵡", "折衷鸚鵡", "太平洋鸚哥", "其他"];
+                        var array = ["鴿子", "文鳥", "十姊妹", "綠繡眼", "和尚鸚鵡", "雞尾鸚鵡", "虎皮鸚鵡", "折衷鸚鵡", "太平洋鸚哥", "其他"];
                         //利用each遍歷array中的值並將每個值新增到input_PetType中
                         $.each(array, function(i, val) {
                             $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
@@ -281,7 +301,7 @@
                         document.getElementById("input_animal2").style.display="none";
                         document.getElementById("input_PetType2").style.display="none";
                         document.getElementById("input_PetType").style.display="";
-                        var array = ["請選擇", "黃金鼠", "一線鼠", "三線鼠", "老公公鼠", "其他"];
+                        var array = ["黃金鼠", "一線鼠", "三線鼠", "老公公鼠", "其他"];
                         //利用each遍歷array中的值並將每個值新增到input_PetType中
                         $.each(array, function(i, val) {
                             $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
@@ -290,7 +310,7 @@
                     case "其他動物": 
                         $("#input_PetType option").remove();
                         document.getElementById("input_animal2").style.display="";
-                        document.getElementById("input_PetType").style.display="none";
+                        $('#input_PetType').append($("<option value='其他'>其他</option>"));
                         document.getElementById("input_PetType2").style.display="";
                         break;
                 }
@@ -301,6 +321,42 @@
                     document.getElementById("input_PetType2").style.display="";
                 } else {
                     document.getElementById("input_PetType2").style.display="none";
+                }
+            });
+
+            $("#input_PetType").change(function(){
+                if ($(this).val() == "其他"){
+                    document.getElementById("input_PetType2").style.display="";
+                } else {
+                    document.getElementById("input_PetType2").style.display="none";
+                }
+            });
+
+            $("#upload").click(function(){
+                if ($("#input_animal").val() == "其他動物" && ($("#input_animal2").val() == "" || $("#input_PetType2").val() == "")) {
+                    document.getElementById("warn0").style.display="none";
+                    document.getElementById("warn1").style.display="";
+                    document.getElementById("warn2").style.display="none";
+                    document.getElementById("warn3").style.display="none";
+                    return false
+                } else if($("#input_PetType").val() == "其他" && $("#input_PetType2").val() == "") {
+                    document.getElementById("warn0").style.display="none";
+                    document.getElementById("warn1").style.display="none";
+                    document.getElementById("warn2").style.display="";
+                    document.getElementById("warn3").style.display="none";
+                    return false
+                } else if ($("#input_time").val() == "") {
+                    document.getElementById("warn0").style.display="";
+                    document.getElementById("warn1").style.display="none";
+                    document.getElementById("warn2").style.display="none";
+                    document.getElementById("warn3").style.display="none";
+                    return false
+                } else {
+                    document.getElementById("warn0").style.display="none";
+                    document.getElementById("warn1").style.display="none";
+                    document.getElementById("warn2").style.display="none";
+                    document.getElementById("warn3").style.display="none";
+                    return true;
                 }
             });
         </script>
