@@ -177,7 +177,7 @@ def FindMaster(req):
 			else:
 				animal = req.POST.get('animal', '')
 				pettype = req.POST.get('pettype', '')
-			flag = 1
+			flag = 2
 			petimg = req.FILES.get('petimg')
 			petid = req.POST.get('petid', '')
 			petcolor = req.POST.get('petcolor', '')
@@ -203,11 +203,20 @@ def FindMaster(req):
 	}
 	return render(req, 'FindMaster.html', content)
 
-def ListAllPost(req):
+def FindPetPost(req):
 	if req.user.is_authenticated():
 		user = req.user
 		state = None
-		postlist = MyLostNotice.objects.all()
+		animal_list = MyLostNotice.objects.values_list('animal', flat=True).distinct()
+		query_animal = req.GET.get('animal')
+
+		if query_animal == 'all' or (not query_animal):
+			postlist = MyLostNotice.objects.filter(flag=1).order_by('-time')
+		elif query_animal == u'其他動物':
+			postlist = MyLostNotice.objects.filter(flag=1, animal__contains=query_animal).order_by('-time')
+		else:
+			postlist = MyLostNotice.objects.filter(flag=1, animal=query_animal).order_by('-time')
+
 		paginator = Paginator(postlist, 5)
 		page = req.GET.get('page')
 		try:
@@ -221,8 +230,42 @@ def ListAllPost(req):
 	content = {
 		'user': user,
 		'postlist': postlist,
+		'animal_list': animal_list,
+		'query_animal': query_animal,
 	}
-	return render(req, 'ListAllPost.html', content)
+	return render(req, 'FindPetPost.html', content)
+
+def FindMasterPost(req):
+	if req.user.is_authenticated():
+		user = req.user
+		state = None
+		animal_list = MyLostNotice.objects.values_list('animal', flat=True).distinct()
+		query_animal = req.GET.get('animal')
+
+		if query_animal == 'all' or (not query_animal):
+			postlist = MyLostNotice.objects.filter(flag=2).order_by('-time')
+		elif query_animal == u'其他動物':
+			postlist = MyLostNotice.objects.filter(flag=2, animal__contains=query_animal).order_by('-time')
+		else:
+			postlist = MyLostNotice.objects.filter(flag=2, animal=query_animal).order_by('-time')
+
+		paginator = Paginator(postlist, 5)
+		page = req.GET.get('page')
+		try:
+			postlist = paginator.page(page)
+		except PageNotAnInteger:
+			postlist = paginator.page(1)
+		except EmptyPage:
+			postlist = paginator.page(paginator.num_pages)
+	else:
+		return HttpResponseRedirect(reverse('HomePage'))
+	content = {
+		'user': user,
+		'postlist': postlist,
+		'animal_list': animal_list,
+		'query_animal': query_animal,
+	}
+	return render(req, 'FindMasterPost.html', content)
 
 def DeleteAllPost(req):
 	MyLostNotice.objects.all().delete() 

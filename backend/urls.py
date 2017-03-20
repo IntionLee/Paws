@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^FindMaster/$',views.FindMaster,name = 'FindMaster'),
     url(r'^ChangeAccount/$',views.ChangeAccount,name = 'ChangeAccount'),
     url(r'^ChangePassword/$',views.ChangePassword,name = 'ChangePassword'),
-    url(r'^ListAllPost/$', views.ListAllPost, name= 'ListAllPost'),
+    url(r'^FindPetPost/$', views.FindPetPost, name= 'FindPetPost'),
+    url(r'^FindMasterPost/$', views.FindMasterPost, name= 'FindMasterPost'),
     url(r'^DeleteAllPost/$', views.DeleteAllPost, name= 'DeleteAllPost'),
 ]
