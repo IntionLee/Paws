@@ -22,40 +22,40 @@
                 <div class="col-md-12">
                     <!--導航列-->
                     <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="http://127.0.0.1:8000/Paws/HomePage">首頁</a>
+                        <li>
+                            <a href="{% url 'HomePage' %}">首頁</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'FindPetPost' %}">尋寵啟事</a>
                         </li>
                         <li class="active">
-                            <a href="http://127.0.0.1:8000/Paws/FindPetPost">尋寵啟示</a>
-                        </li>
-                        <li class="active">
-                            <a href="http://127.0.0.1:8000/Paws/FindMasterPost">尋主啟示</a>
+                            <a href="{% url 'FindMasterPost' %}">尋主啟事</a>
                         </li>
                         <!--下拉選單-->
                         <li class="dropdown pull-right">
                             {% if user %}
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">歡迎用戶&nbsp;&nbsp;<span id="base_name">{{ user.myuser.pubname }}</span></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="http://127.0.0.1:8000/Paws/Logout">登出</a>
-                                </li>
-                                <li>
-                                    <a href="http://127.0.0.1:8000/Paws/ChangeAccount">會員資料修改</a>
-                                </li>
-                                <li>
-                                    <a href="http://127.0.0.1:8000/Paws/ChangePassword">會員密碼修改</a>
-                                </li>
-                            </ul>
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">歡迎用戶&nbsp;&nbsp;<span id="base_name">{{ user.myuser.pubname }}</span></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{% url 'Logout' %}">登出</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'ChangeAccount' %}">會員資料修改</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'ChangePassword' %}">會員密碼修改</a>
+                                    </li>
+                                </ul>
                             {% else %}
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="http://127.0.0.1:8000/Paws/Login">登入</a>
-                                </li>
-                                <li>
-                                    <a href="http://127.0.0.1:8000/Paws/SignUp">註冊</a>
-                                </li>
-                            </ul>
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{% url 'Login' %}">登入</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'SignUp' %}">註冊</a>
+                                    </li>
+                                </ul>
                             {% endif %}
                         </li>
                     </ul>
@@ -71,7 +71,7 @@
                     <div class="list-group">
                         <a href="{% url 'FindMasterPost' %}?animal={{ "all" }}" class="list-group-item" id="id_animal_all">全部</a>
                         <a href="{% url 'FindMasterPost' %}?animal={{ "狗" }}" class="list-group-item" id="id_animal_狗">狗</a>
-                        <a href="{% url 'FindMasterPost' %}?animal={{ "貓" }}" class="list-group-item" id="id_animal_貓>">貓</a>
+                        <a href="{% url 'FindMasterPost' %}?animal={{ "貓" }}" class="list-group-item" id="id_animal_貓">貓</a>
                         <a href="{% url 'FindMasterPost' %}?animal={{ "鳥" }}" class="list-group-item" id="id_animal_鳥">鳥</a>
                         <a href="{% url 'FindMasterPost' %}?animal={{ "倉鼠" }}" class="list-group-item" id="id_animal_倉鼠">倉鼠</a>
                         <a href="{% url 'FindMasterPost' %}?animal={{ "其他動物" }}" class="list-group-item" id="id_animal_其他動物">其他動物</a>
@@ -79,13 +79,14 @@
                 </div>
 
                 <div class="col-md-9 ">
+                    <legend>尋主啟事</legend>
                     {% for mylostnotice in postlist %}
-                        <div class="col-md-12 " id="div-data">
-                            <div class="col-md-3">
+                        <div class="col-md-12 " id="div-data" style="background-color: #F5F5F5">
+                            <div class="col-md-3" style="background-color: #F5F5F5">
                                 <img src="/media/{{mylostnotice.petimg}}" alt="" id="pic"/>
                             </div>
                             <div class="col-md-9 ">
-                                <table class="table table-hover">
+                                <table class="table" frame=void>
                                     <tbody>
                                         <tr>
                                             <td><img src="/static/images/logo.png" alt="" id="logo-small"/>     寵物狀態：</td>
@@ -108,9 +109,12 @@
                                     </tbody>
                                 </table>
                                 <div class="col-md-12 ">
-                                    <button type="button" class="btn btn-default" style="float:right">詳細內容</button>
+                                    <button type="button" class="btn btn-default btn-readmore">Read More</button>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-12 ">
+                            <hr>
                         </div>
                     {% empty %}
                         <div class="well">
@@ -145,6 +149,7 @@
         <script src="/static/js/bootstrap.min.js"></script>
         <script src="/static/js/scripts.js"></script>
         <script type="text/javascript">
+            $('#id_animal_{{ query_animal }}').addClass("active");
         </script>
     </body>
 </html>

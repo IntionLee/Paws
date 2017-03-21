@@ -23,38 +23,38 @@
                 <div class="col-md-12">
                     <!--導航列-->
                     <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="http://127.0.0.1:8000/Paws/HomePage">首頁</a>
+                        <li>
+                            <a href="{% url 'HomePage' %}">首頁</a>
                         </li>
-                        <li class="active">
-                            <a href="http://127.0.0.1:8000/Paws/FindPetPost">尋寵啟示</a>
+                        <li>
+                            <a href="{% url 'FindPetPost' %}">尋寵啟事</a>
                         </li>
-                        <li class="active">
-                            <a href="http://127.0.0.1:8000/Paws/FindMasterPost">尋主啟示</a>
+                        <li>
+                            <a href="{% url 'FindMasterPost' %}">尋主啟事</a>
                         </li>
                         <!--下拉選單-->
                         <li class="dropdown pull-right">
-                           {% if user %}
+                            {% if user %}
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">歡迎用戶&nbsp;&nbsp;<span id="base_name">{{ user.myuser.pubname }}</span></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="http://127.0.0.1:8000/Paws/Logout">登出</a>
+                                        <a href="{% url 'Logout' %}">登出</a>
                                     </li>
                                     <li>
-                                        <a href="http://127.0.0.1:8000/Paws/ChangeAccount">會員資料修改</a>
+                                        <a href="{% url 'ChangeAccount' %}">會員資料修改</a>
                                     </li>
                                     <li>
-                                        <a href="http://127.0.0.1:8000/Paws/ChangePassword">會員密碼修改</a>
+                                        <a href="{% url 'ChangePassword' %}">會員密碼修改</a>
                                     </li>
                                 </ul>
                             {% else %}
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="http://127.0.0.1:8000/Paws/Login">登入</a>
+                                        <a href="{% url 'Login' %}">登入</a>
                                     </li>
                                     <li>
-                                        <a href="http://127.0.0.1:8000/Paws/SignUp">註冊</a>
+                                        <a href="{% url 'SignUp' %}">註冊</a>
                                     </li>
                                 </ul>
                             {% endif %}

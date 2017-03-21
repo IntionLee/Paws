@@ -11,9 +11,9 @@ body {
 #div-data {
     border-width: 1px;
     border-style: solid;
-    border-color: #CFCFCF;
-    padding:5px 5px 5px 5px;
-    margin: 5px;
+    border-color: #F5F5F5;
+    padding:20px 5px 5px 5px;
+    margin: 5px 5px  5px 5px;
 }
 
 #div-logo {
@@ -22,7 +22,7 @@ body {
 }
 
 #pic {
-    height: 170px;
+    height: 150px;
     display:block;
     margin:auto;
 }
@@ -64,4 +64,11 @@ body {
 
 .btn-right {
     float: right;
+}
+
+.btn-readmore {
+    float: right;
+    border-color: #F5F5F5;
+    background-color: #F5F5F5;
+    text-decoration:underline;
 }
