@@ -79,55 +79,44 @@
                 </div>
 
                 <div class="col-md-9 ">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>狀態</th>
-                                <th>寵物照片</th>
-                                <th>寵物類別</th>
-                                <th>寵物品種</th>
-                                <th>寵物晶片號碼</th>
-                                <th>毛色/花色</th>
-                                <th>寵物性別</th>
-                                <th>寵物體型</th>
-                                <th>是否結扎</th>
-                                <th>寵物特徵/其他備註</th>
-                                <th>丟失地點</th>
-                                <th>丟失日期</th>
-                                <th>聯絡人</th>
-                                <th>連絡電話</th>
-                                <th>聯絡email</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                        {% for mylostnotice in postlist %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ mylostnotice.flag }}</td>
-                                <td><img src="/media/{{mylostnotice.petimg}}" alt="" width="100"/></td>
-                                <td>{{ mylostnotice.animal }}</td>
-                                <td>{{ mylostnotice.pettype }}</td>
-                                <td>{{ mylostnotice.petid }}</td>
-                                <td>{{ mylostnotice.petcolor }}</td>
-                                <td>{{ mylostnotice.petgender }}</td>
-                                <td>{{ mylostnotice.size }}</td>
-                                <td>{{ mylostnotice.ligation }}</td>
-                                <td>{{ mylostnotice.petfeature }}</td>
-                                <td>{{ mylostnotice.location }}</td>
-                                <td>{{ mylostnotice.time|date:"Y-m-d" }}</td>
-                                <td>{{ mylostnotice.contactname }}</td>
-                                <td>{{ mylostnotice.phonenumber }}</td>
-                                <td>{{ mylostnotice.email }}</td>
-                            </tr>
-                        {% empty %}
-                            <tr>
-                                <td>查無資料</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                    {% for mylostnotice in postlist %}
+                        <div class="col-md-12 " id="div-data">
+                            <div class="col-md-3">
+                                <img src="/media/{{mylostnotice.petimg}}" alt="" id="pic"/>
+                            </div>
+                            <div class="col-md-9 ">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物狀態：</td>
+                                            <td>走失</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物性別：</td>
+                                            <td>{{ mylostnotice.petgender }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物類別：</td>
+                                            <td>{{ mylostnotice.animal }}</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物品種：</td>
+                                            <td>{{ mylostnotice.pettype }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    走失地點：</td>
+                                            <td>{{ mylostnotice.location }}</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    走失日期：</td>
+                                            <td>{{ mylostnotice.time|date:"Y-m-d" }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="col-md-12 ">
+                                    <button type="button" class="btn btn-default" style="float:right">詳細內容</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="well">
+                            <h1 class="text-danger text-center">查無資料</h2>
+                        </div>
+                    {% endfor %}
 
                     <nav>
                         <ul class="pager">

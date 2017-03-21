@@ -8,9 +8,23 @@ body {
     margin-top: 50px;
 }
 
+#div-data {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #CFCFCF;
+    padding:5px 5px 5px 5px;
+    margin: 5px;
+}
+
 #div-logo {
     height: 500px;
     position: relative;
+}
+
+#pic {
+    height: 170px;
+    display:block;
+    margin:auto;
 }
 
 #logo {
@@ -18,7 +32,7 @@ body {
 }
 
 #logo-small {
-    height: 40px;
+    height: 15px;
 }
 
 #login-form {
