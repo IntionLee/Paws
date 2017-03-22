@@ -238,7 +238,6 @@ def FindPetPost(req):
 def FindMasterPost(req):
 	if req.user.is_authenticated():
 		user = req.user
-		state = None
 		animal_list = MyLostNotice.objects.values_list('animal', flat=True).distinct()
 		query_animal = req.GET.get('animal')
 
@@ -266,6 +265,54 @@ def FindMasterPost(req):
 		'query_animal': query_animal,
 	}
 	return render(req, 'FindMasterPost.html', content)
+
+def Detail(req):
+	if req.user.is_authenticated():
+		user = req.user
+		mylostnotice_id = req.GET.get('id', '')
+		if mylostnotice_id == '':
+			return HttpResponseRedirect(reverse('HomePage'))
+		try:
+			mylostnotice = MyLostNotice.objects.get(pk=mylostnotice_id)
+		except MyLostNotice.DoesNotExist:
+			return HttpResponseRedirect(reverse('HomePage'))
+	else:
+		return HttpResponseRedirect(reverse('HomePage'))
+	content = {
+		'user': user,
+		'mylostnotice': mylostnotice,
+	}
+	return render(req, 'Detail.html', content)
+
+def Serch(req):
+	if req.user.is_authenticated():
+		user = req.user
+		flag = req.POST.get('flag', '')
+		animal = req.POST.get('animal', '')
+		pettype = req.POST.get('pettype', '')
+		petid = req.POST.get('petid', '')
+		petgender = req.POST.get('petgender', '')
+		size = req.POST.get('size', '')
+		ligation = req.POST.get('ligation', '')
+		location = req.POST.get('location', '')
+		postlist = MyLostNotice.objects.filter(flag__contains=flag, animal__contains=animal, pettype__contains=pettype, petid__contains=petid,
+			petgender__contains=petgender, size__contains=size, ligation__contains=ligation, location__contains=location).order_by('-time')
+
+		paginator = Paginator(postlist, 5)
+		page = req.GET.get('page')
+		try:
+			postlist = paginator.page(page)
+		except PageNotAnInteger:
+			postlist = paginator.page(1)
+		except EmptyPage:
+			postlist = paginator.page(paginator.num_pages)
+	else:
+		return HttpResponseRedirect(reverse('HomePage'))
+	content = {
+		'user': user,
+		'postlist': postlist,
+	}
+	return render(req, 'Serch.html', content)
 
 def DeleteAllPost(req):
 	MyLostNotice.objects.all().delete() 

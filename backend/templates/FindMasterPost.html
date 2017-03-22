@@ -31,6 +31,9 @@
                         <li class="active">
                             <a href="{% url 'FindMasterPost' %}">尋主啟事</a>
                         </li>
+                        <li>
+                            <a href="{% url 'Serch' %}">搜索</a>
+                        </li>
                         <!--下拉選單-->
                         <li class="dropdown pull-right">
                             {% if user %}
@@ -89,27 +92,22 @@
                                 <table class="table" frame=void>
                                     <tbody>
                                         <tr>
-                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>     寵物狀態：</td>
-                                            <td>拾獲</td>
-                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物性別：</td>
-                                            <td>{{ mylostnotice.petgender }}</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>     寵物狀態：  拾獲</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物性別：  {{ mylostnotice.petgender }}</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物類別：</td>
-                                            <td>{{ mylostnotice.animal }}</td>
-                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物品種：</td>
-                                            <td>{{ mylostnotice.pettype }}</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物類別：  {{ mylostnotice.animal }}</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物品種：  {{ mylostnotice.pettype }}</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    拾獲地點：</td>
-                                            <td>{{ mylostnotice.location }}</td>
-                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    拾獲日期：</td>
-                                            <td>{{ mylostnotice.time|date:"Y-m-d" }}</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    拾獲地點：  {{ mylostnotice.location }}</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    拾獲日期：  {{ mylostnotice.time|date:"Y-m-d" }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <div class="col-md-12 ">
-                                    <button type="button" class="btn btn-default btn-readmore">Read More</button>
+                                    <a class="readmore" href="{% url 'Detail' %}?id={{ mylostnotice.id }}">Read More</a>
+                                    <!--button type="button" class="btn btn-default btn-readmore">Read More</button-->
                                 </div>
                             </div>
                         </div>

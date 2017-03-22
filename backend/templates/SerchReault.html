@@ -31,9 +31,6 @@
                         <li>
                             <a href="{% url 'FindMasterPost' %}">尋主啟事</a>
                         </li>
-                        <li>
-                            <a href="{% url 'Serch' %}">搜索</a>
-                        </li>
                         <!--下拉選單-->
                         <li class="dropdown pull-right">
                             {% if user %}
@@ -92,7 +89,14 @@
                                 <table class="table" frame=void>
                                     <tbody>
                                         <tr>
-                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物狀態：  走失</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>     寵物狀態：  
+                                                {% ifequal mylostnotice.flag 1 %}
+                                                    走失
+                                                {% endifequal %}
+                                                {% ifequal mylostnotice.flag 2 %}
+                                                    拾獲
+                                                {% endifequal %}
+                                            </td>
                                             <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物性別：  {{ mylostnotice.petgender }}</td>
                                         </tr>
                                         <tr>
@@ -132,7 +136,7 @@
                             第 {{ postlist.number }} / {{ postlist.paginator.num_pages }}页
                             {% if postlist.has_next %}
                                 <li class="next">
-                                    <a href="?typ={{ query_animal }}&page={{ postlist.next_page_number }}">下一頁</a>
+                                    <a href="?flag={{ flag }}&animal={{ animal }}&pettype={{ pettype }}&petid={{ petid }}&petgender={{ petgender }}&size={{ size }}&ligation={{ ligation }}&location={{ location }}&page={{ postlist.next_page_number }}">下一頁</a>
                                 </li>
                             {% else %}
                                 <li class="next disabled"><a href="#">下一頁</a></li>

@@ -32,6 +32,9 @@
                         <li>
                             <a href="{% url 'FindMasterPost' %}">尋主啟事</a>
                         </li>
+                        <li>
+                            <a href="{% url 'Serch' %}">搜索</a>
+                        </li>
                         <!--下拉選單-->
                         <li class="dropdown pull-right">
                             {% if user %}
@@ -318,14 +321,6 @@
                         $('#input_PetType').append($("<option value='其他'>其他</option>"));
                         document.getElementById("input_PetType2").style.display="";
                         break;
-                }
-            });
-
-            $("#input_PetType").change(function(){
-                if ($(this).val() == "其他"){
-                    document.getElementById("input_PetType2").style.display="";
-                } else {
-                    document.getElementById("input_PetType2").style.display="none";
                 }
             });
 

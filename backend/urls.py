@@ -14,4 +14,6 @@ urlpatterns = [
     url(r'^FindPetPost/$', views.FindPetPost, name= 'FindPetPost'),
     url(r'^FindMasterPost/$', views.FindMasterPost, name= 'FindMasterPost'),
     url(r'^DeleteAllPost/$', views.DeleteAllPost, name= 'DeleteAllPost'),
+    url(r'^Detail/$', views.Detail, name= 'Detail'),
+    url(r'^Serch/$', views.Serch, name= 'Serch'),
 ]
