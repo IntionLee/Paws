@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hant">
+    <head>
+        <meta charset="utf-8">
+        <!--兼容ie-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Paws</title>
+
+        <meta name="description" content="FindMaster page of 'Paws'">
+        <meta name="author" content="Intion Lee">
+
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/style.css" rel="stylesheet">
+        <link href="/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!--導航列-->
+                    <ul class="nav nav-tabs">
+                        <li>
+                            <a href="{% url 'HomePage' %}">首頁</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'FindPetPost' %}">尋寵啟事</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'FindMasterPost' %}">尋主啟事</a>
+                        </li>
+                        <li class="active">
+                            <a href="{% url 'Serch' %}">搜索</a>
+                        </li>
+                        <!--下拉選單-->
+                        <li class="dropdown pull-right">
+                            {% if user %}
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">歡迎用戶&nbsp;&nbsp;<span id="base_name">{{ user.myuser.pubname }}</span></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{% url 'Logout' %}">登出</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'ChangeAccount' %}">會員資料修改</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'ChangePassword' %}">會員密碼修改</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'MyPost' %}">我的啟事</a>
+                                    </li>
+                                </ul>
+                            {% else %}
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{% url 'Login' %}">登入</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'SignUp' %}">註冊</a>
+                                    </li>
+                                </ul>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <h2>              </h2>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 body-main">
+                    <img class="img-responsive center-block" id="logo" alt="Logo Image Of Paws" src="/static/images/logo.png">
+                </div>
+
+                <div class="col-sm-6 body-main">
+                    <legend>我的啟事</legend>
+                    {% for mylostnotice in postlist %}
+                        <div class="col-sm-12 " id="div-data" style="background-color: #F5F5F5">
+                            <div class="col-sm-3" style="background-color: #F5F5F5">
+                                <img src="/media/{{mylostnotice.petimg}}" alt="" id="pic"/>
+                            </div>
+                            <div class="col-sm-9 ">
+                                <table class="table" frame=void>
+                                    <tbody>
+                                        <tr>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>     寵物狀態：  
+                                                {% ifequal mylostnotice.flag 1 %}
+                                                    走失
+                                                {% endifequal %}
+                                                {% ifequal mylostnotice.flag 2 %}
+                                                    拾獲
+                                                {% endifequal %}
+                                            </td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物性別：  {{ mylostnotice.petgender }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物類別：  {{ mylostnotice.animal }}</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物品種：  {{ mylostnotice.pettype }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    走失地點：  {{ mylostnotice.location }}</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    走失日期：  {{ mylostnotice.time|date:"Y-m-d" }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="col-sm-12 ">
+                                    <a class="readmore" href="{% url 'Detail' %}?id={{ mylostnotice.id }}">Read More</a>
+                                    <!--button type="button" class="btn btn-default btn-readmore">Read More</button-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 ">
+                            <hr>
+                        </div>
+                    {% empty %}
+                        <div class="well">
+                            <h1 class="text-danger text-center">查無資料</h2>
+                        </div>
+                    {% endfor %}
+
+                    <nav>
+                        <ul class="pager">
+                            {% if postlist.has_previous %}
+                                <li class="previous">
+                                    <a href="?page={{ postlist.previous_page_number }}">上一頁</a>
+                                </li>
+                            {% else %}
+                                <li class="previous disabled"><a href="#">上一頁</a></li>
+                            {% endif %}
+                            第 {{ postlist.number }} / {{ postlist.paginator.num_pages }}页
+                            {% if postlist.has_next %}
+                                <li class="next">
+                                    <a href="?page={{ postlist.next_page_number }}">下一頁</a>
+                                </li>
+                            {% else %}
+                                <li class="next disabled"><a href="#">下一頁</a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/scripts.js"></script>
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+                $('#input_animal').val('')
+                $('#input_PetGender').val('')
+                $('#input_size').val('')
+                $('#input_ligation').val('')
+            });
+
+            $("#input_animal").change(function(){
+                switch ($(this).val()){
+                    case "": 
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_PetType").style.display="";
+                        $('#input_PetType').append($("<option value=''>不限</option>"));
+                        break;
+                    case "狗": 
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_PetType").style.display="";
+                        var array = ["臘腸", "柴犬", "柯基", "巴哥", "比熊", "西施", "杜賓", "沙皮", "秋田", "貴賓", "獒犬", "喜樂蒂", "哈士奇",
+                        "米克斯", "拉不拉多", "黃金獵犬", "馬爾濟斯", "阿拉斯加", "中華田園", "其他"];
+                        $('#input_PetType').append($("<option value=''>不限</option>"));
+                        //利用each遍歷array中的值並將每個值新增到input_PetType中
+                        $.each(array, function(i, val) {
+                            $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
+                        });
+                        break;
+                    case "貓": 
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_PetType").style.display="";
+                        var array = ["波斯", "暹羅", "布偶", "折耳", "米克斯", "美國短毛", "英國短毛", "挪威森林", "北美洲", "南極洲", "中華田園", "其他"];
+                        $('#input_PetType').append($("<option value=''>不限</option>"));
+                        //利用each遍歷array中的值並將每個值新增到input_PetType中
+                        $.each(array, function(i, val) {
+                            $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
+                        });      
+                        break;
+                    case "鳥": 
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_PetType").style.display="";
+                        var array = ["鴿子", "文鳥", "十姊妹", "綠繡眼", "和尚鸚鵡", "雞尾鸚鵡", "虎皮鸚鵡", "折衷鸚鵡", "太平洋鸚哥", "其他"];
+                        $('#input_PetType').append($("<option value=''>不限</option>"));
+                        //利用each遍歷array中的值並將每個值新增到input_PetType中
+                        $.each(array, function(i, val) {
+                            $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
+                        });      
+                        break;
+                    case "倉鼠": 
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_PetType").style.display="";
+                        var array = ["黃金鼠", "一線鼠", "三線鼠", "老公公鼠", "其他"];
+                        $('#input_PetType').append($("<option value=''>不限</option>"));
+                        //利用each遍歷array中的值並將每個值新增到input_PetType中
+                        $.each(array, function(i, val) {
+                            $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
+                        });      
+                        break;
+                    case "其他動物": 
+                        $("#input_PetType option").remove();
+                        $('#input_PetType').append($("<option value='其他'>其他</option>"));
+                        break;
+                }
+            });
+        </script>
+    </body>
+</html>

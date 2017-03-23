@@ -17,6 +17,7 @@ class MyUser(models.Model):
 
 class MyLostNotice(models.Model):
 	flag = models.IntegerField(default=0)
+	poster = models.ForeignKey(User)
 	petimg = models.ImageField(upload_to='image')
 	animal = models.CharField(max_length=50)
 	pettype = models.CharField(max_length=50)

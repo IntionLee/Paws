@@ -16,4 +16,7 @@ urlpatterns = [
     url(r'^DeleteAllPost/$', views.DeleteAllPost, name= 'DeleteAllPost'),
     url(r'^Detail/$', views.Detail, name= 'Detail'),
     url(r'^Serch/$', views.Serch, name= 'Serch'),
+    url(r'^MyPost/$', views.MyPost, name= 'MyPost'),
+    url(r'^DeletePost/$', views.DeletePost, name= 'DeletePost'),
+    url(r'^ChangePost/$', views.ChangePost, name= 'ChangePost'),
 ]

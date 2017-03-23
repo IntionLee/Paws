@@ -151,7 +151,7 @@ def FindPet(req):
 			phonenumber = req.POST.get('phonenumber', '')
 			email = req.POST.get('email', '')
 
-			new_lost_notice = MyLostNotice(flag=flag, petimg=petimg, animal=animal, pettype=pettype, petid=petid, petcolor=petcolor, petgender=petgender, size=size
+			new_lost_notice = MyLostNotice(flag=flag, poster=user, petimg=petimg, animal=animal, pettype=pettype, petid=petid, petcolor=petcolor, petgender=petgender, size=size
 				, ligation=ligation, petfeature=petfeature, location=location, time=time, contactname=contactname, phonenumber=phonenumber, email=email)
 			new_lost_notice.save()
 			state = 'success'
@@ -191,7 +191,7 @@ def FindMaster(req):
 			phonenumber = req.POST.get('phonenumber', '')
 			email = req.POST.get('email', '')
 
-			new_lost_notice = MyLostNotice(flag=flag, petimg=petimg, animal=animal, pettype=pettype, petid=petid, petcolor=petcolor, petgender=petgender, size=size
+			new_lost_notice = MyLostNotice(flag=flag, poster=user, petimg=petimg, animal=animal, pettype=pettype, petid=petid, petcolor=petcolor, petgender=petgender, size=size
 				, ligation=ligation, petfeature=petfeature, location=location, time=time, contactname=contactname, phonenumber=phonenumber, email=email)
 			new_lost_notice.save()
 			state = 'success'
@@ -206,27 +206,29 @@ def FindMaster(req):
 def FindPetPost(req):
 	if req.user.is_authenticated():
 		user = req.user
-		state = None
-		animal_list = MyLostNotice.objects.values_list('animal', flat=True).distinct()
-		query_animal = req.GET.get('animal')
-
-		if query_animal == 'all' or (not query_animal):
-			postlist = MyLostNotice.objects.filter(flag=1).order_by('-time')
-		elif query_animal == u'其他動物':
-			postlist = MyLostNotice.objects.filter(flag=1, animal__contains=query_animal).order_by('-time')
-		else:
-			postlist = MyLostNotice.objects.filter(flag=1, animal=query_animal).order_by('-time')
-
-		paginator = Paginator(postlist, 5)
-		page = req.GET.get('page')
-		try:
-			postlist = paginator.page(page)
-		except PageNotAnInteger:
-			postlist = paginator.page(1)
-		except EmptyPage:
-			postlist = paginator.page(paginator.num_pages)
 	else:
-		return HttpResponseRedirect(reverse('HomePage'))
+		user = None
+
+	state = None
+	animal_list = MyLostNotice.objects.values_list('animal', flat=True).distinct()
+	query_animal = req.GET.get('animal')
+
+	if query_animal == 'all' or (not query_animal):
+		postlist = MyLostNotice.objects.filter(flag=1).order_by('-time')
+	elif query_animal == u'其他動物':
+		postlist = MyLostNotice.objects.filter(flag=1, animal__contains=query_animal).order_by('-time')
+	else:
+		postlist = MyLostNotice.objects.filter(flag=1, animal=query_animal).order_by('-time')
+
+	paginator = Paginator(postlist, 5)
+	page = req.GET.get('page')
+	try:
+		postlist = paginator.page(page)
+	except PageNotAnInteger:
+		postlist = paginator.page(1)
+	except EmptyPage:
+		postlist = paginator.page(paginator.num_pages)
+
 	content = {
 		'user': user,
 		'postlist': postlist,
@@ -238,26 +240,27 @@ def FindPetPost(req):
 def FindMasterPost(req):
 	if req.user.is_authenticated():
 		user = req.user
-		animal_list = MyLostNotice.objects.values_list('animal', flat=True).distinct()
-		query_animal = req.GET.get('animal')
-
-		if query_animal == 'all' or (not query_animal):
-			postlist = MyLostNotice.objects.filter(flag=2).order_by('-time')
-		elif query_animal == u'其他動物':
-			postlist = MyLostNotice.objects.filter(flag=2, animal__contains=query_animal).order_by('-time')
-		else:
-			postlist = MyLostNotice.objects.filter(flag=2, animal=query_animal).order_by('-time')
-
-		paginator = Paginator(postlist, 5)
-		page = req.GET.get('page')
-		try:
-			postlist = paginator.page(page)
-		except PageNotAnInteger:
-			postlist = paginator.page(1)
-		except EmptyPage:
-			postlist = paginator.page(paginator.num_pages)
 	else:
-		return HttpResponseRedirect(reverse('HomePage'))
+		user = None
+	animal_list = MyLostNotice.objects.values_list('animal', flat=True).distinct()
+	query_animal = req.GET.get('animal')
+
+	if query_animal == 'all' or (not query_animal):
+		postlist = MyLostNotice.objects.filter(flag=2).order_by('-time')
+	elif query_animal == u'其他動物':
+		postlist = MyLostNotice.objects.filter(flag=2, animal__contains=query_animal).order_by('-time')
+	else:
+		postlist = MyLostNotice.objects.filter(flag=2, animal=query_animal).order_by('-time')
+
+	paginator = Paginator(postlist, 5)
+	page = req.GET.get('page')
+	try:
+		postlist = paginator.page(page)
+	except PageNotAnInteger:
+		postlist = paginator.page(1)
+	except EmptyPage:
+		postlist = paginator.page(paginator.num_pages)
+
 	content = {
 		'user': user,
 		'postlist': postlist,
@@ -269,14 +272,14 @@ def FindMasterPost(req):
 def Detail(req):
 	if req.user.is_authenticated():
 		user = req.user
-		mylostnotice_id = req.GET.get('id', '')
-		if mylostnotice_id == '':
-			return HttpResponseRedirect(reverse('HomePage'))
-		try:
-			mylostnotice = MyLostNotice.objects.get(pk=mylostnotice_id)
-		except MyLostNotice.DoesNotExist:
-			return HttpResponseRedirect(reverse('HomePage'))
 	else:
+		user = None
+	mylostnotice_id = req.GET.get('id', '')
+	if mylostnotice_id == '':
+		return HttpResponseRedirect(reverse('HomePage'))
+	try:
+		mylostnotice = MyLostNotice.objects.get(pk=mylostnotice_id)
+	except MyLostNotice.DoesNotExist:
 		return HttpResponseRedirect(reverse('HomePage'))
 	content = {
 		'user': user,
@@ -287,32 +290,115 @@ def Detail(req):
 def Serch(req):
 	if req.user.is_authenticated():
 		user = req.user
-		flag = req.POST.get('flag', '')
-		animal = req.POST.get('animal', '')
-		pettype = req.POST.get('pettype', '')
-		petid = req.POST.get('petid', '')
-		petgender = req.POST.get('petgender', '')
-		size = req.POST.get('size', '')
-		ligation = req.POST.get('ligation', '')
-		location = req.POST.get('location', '')
-		postlist = MyLostNotice.objects.filter(flag__contains=flag, animal__contains=animal, pettype__contains=pettype, petid__contains=petid,
-			petgender__contains=petgender, size__contains=size, ligation__contains=ligation, location__contains=location).order_by('-time')
+	else:
+		user = None
+	flag = req.POST.get('flag', '')
+	animal = req.POST.get('animal', '')
+	pettype = req.POST.get('pettype', '')
+	petid = req.POST.get('petid', '')
+	petgender = req.POST.get('petgender', '')
+	size = req.POST.get('size', '')
+	ligation = req.POST.get('ligation', '')
+	location = req.POST.get('location', '')
+	postlist = MyLostNotice.objects.filter(flag__contains=flag, animal__contains=animal, pettype__contains=pettype, petid__contains=petid,
+		petgender__contains=petgender, size__contains=size, ligation__contains=ligation, location__contains=location).order_by('-time')
 
-		paginator = Paginator(postlist, 5)
-		page = req.GET.get('page')
-		try:
-			postlist = paginator.page(page)
-		except PageNotAnInteger:
-			postlist = paginator.page(1)
-		except EmptyPage:
-			postlist = paginator.page(paginator.num_pages)
+	paginator = Paginator(postlist, 5)
+	page = req.GET.get('page')
+	try:
+		postlist = paginator.page(page)
+	except PageNotAnInteger:
+		postlist = paginator.page(1)
+	except EmptyPage:
+		postlist = paginator.page(paginator.num_pages)
+	content = {
+		'user': user,
+		'postlist': postlist,
+		'flag': flag,
+		'animal': animal,
+		'pettype': pettype,
+		'petid': petid,
+		'petgender': petgender,
+		'size': size,
+		'ligation': ligation,
+		'location': location,
+	}
+	return render(req, 'Serch.html', content)
+
+def MyPost(req):
+	if req.user.is_authenticated():
+		user = req.user
+		postlist = MyLostNotice.objects.filter(poster=user).order_by('-time')
+
 	else:
 		return HttpResponseRedirect(reverse('HomePage'))
+	paginator = Paginator(postlist, 5)
+	page = req.GET.get('page')
+	try:
+		postlist = paginator.page(page)
+	except PageNotAnInteger:
+		postlist = paginator.page(1)
+	except EmptyPage:
+		postlist = paginator.page(paginator.num_pages)
 	content = {
 		'user': user,
 		'postlist': postlist,
 	}
-	return render(req, 'Serch.html', content)
+	return render(req, 'MyPost.html', content)
+
+def ChangePost(req):
+	if req.user.is_authenticated():
+		state = None
+		user = req.user
+		mylostnotice_id = req.GET.get('id', '')
+		if mylostnotice_id == '':
+			return HttpResponseRedirect(reverse('HomePage'))
+		try:
+			mylostnotice = MyLostNotice.objects.get(pk=mylostnotice_id)
+		except MyLostNotice.DoesNotExist:
+			return HttpResponseRedirect(reverse('HomePage'))
+		if req.method == 'POST':
+			if mylostnotice.poster == user:
+				mylostnotice.petid = req.POST.get('petid', '')
+				mylostnotice.petcolor = req.POST.get('petcolor', '')
+				mylostnotice.petgender = req.POST.get('petgender', '')
+				mylostnotice.size = req.POST.get('size', '')
+				mylostnotice.ligation = req.POST.get('ligation', '')
+				mylostnotice.petfeature = req.POST.get('petfeature', '')
+				mylostnotice.location = req.POST.get('location', '')
+				mylostnotice.contactname = req.POST.get('contactname', '')
+				mylostnotice.phonenumber = req.POST.get('phonenumber', '')
+				mylostnotice.email = req.POST.get('email', '')
+				mylostnotice.save()
+				state = 'success'
+			else:
+				mylostnotice = None
+				return HttpResponseRedirect(reverse('HomePage'))
+		
+
+	else:
+		return HttpResponseRedirect(reverse('HomePage'))
+	content = {
+		'state': state,
+		'user': user,
+		'mylostnotice': mylostnotice,
+	}
+	return render(req, 'ChangePost.html', content)
+
+
+def DeletePost(req):
+	if req.user.is_authenticated():
+		mylostnotice_id = req.GET.get('id', '')
+		if mylostnotice_id == '':
+			return HttpResponseRedirect(reverse('HomePage'))
+		try:
+			MyLostNotice.objects.get(pk=mylostnotice_id).delete()
+			return HttpResponseRedirect(reverse('MyPost'))
+		except MyLostNotice.DoesNotExist:
+			return HttpResponseRedirect(reverse('HomePage'))
+	else:
+		return HttpResponseRedirect(reverse('HomePage'))
+
 
 def DeleteAllPost(req):
 	MyLostNotice.objects.all().delete() 

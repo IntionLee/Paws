@@ -19,7 +19,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-sm-12">
                     <!--導航列-->
                     <ul class="nav nav-tabs">
                         <li>
@@ -48,6 +48,9 @@
                                     <li>
                                         <a href="{% url 'ChangePassword' %}">會員密碼修改</a>
                                     </li>
+                                    <li>
+                                        <a href="{% url 'MyPost' %}">我的啟事</a>
+                                    </li>
                                 </ul>
                             {% else %}
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
@@ -66,13 +69,13 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12" id="div-logo">
+                <div class="col-sm-12" id="div-logo">
                     <img class="center" id="logo" alt="Logo Image Of Paws" src="/static/images/logo.png">
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-sm-12">
                     <form class="form-horizontal center" id="login-form" action="#" method="post" role="form">
                         <div class="form-group"> 
                             <label for="input_username" class="col-sm-4 control-label">帳號：</label>
@@ -95,9 +98,11 @@
                         {% endif %}
 
                         <div class="form-group">
-                            <div class="col-sm-offset-3 col-sm-10">
-                                <button type="submit" class="btn btn-default">登入</button>
-                                <button type="button" class="btn btn-default" id="forget_password">忘记密碼</button>
+                            <div class="col-sm-12">
+                                <div class="btn-right">
+                                    <button type="submit" class="btn btn-default">登入</button>
+                                    <button type="button" class="btn btn-default" id="forget_password">忘记密碼</button>
+                                </div>
                             </div>
                         </div>
                     </form>

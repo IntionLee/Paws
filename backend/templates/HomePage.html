@@ -19,7 +19,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-sm-12">
                     <!--導航列-->
                     <ul class="nav nav-tabs">
                         <li class="active">
@@ -48,6 +48,9 @@
                                     <li>
                                         <a href="{% url 'ChangePassword' %}">會員密碼修改</a>
                                     </li>
+                                    <li>
+                                        <a href="{% url 'MyPost' %}">我的啟事</a>
+                                    </li>
                                 </ul>
                             {% else %}
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
@@ -66,13 +69,13 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12" id="div-logo">
+                <div class="col-sm-12" id="div-logo">
                     <img class="center" id="logo" alt="Logo Image Of Paws" src="/static/images/logo.png">
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-sm-12">
                     <ul class="button-list center">
                         <li>
                             <a href="{% url 'FindMaster' %}"><button class="btn btn-default">拾獲寵物</button></a>

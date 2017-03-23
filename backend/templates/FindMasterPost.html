@@ -19,7 +19,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-sm-12">
                     <!--導航列-->
                     <ul class="nav nav-tabs">
                         <li>
@@ -48,6 +48,9 @@
                                     <li>
                                         <a href="{% url 'ChangePassword' %}">會員密碼修改</a>
                                     </li>
+                                    <li>
+                                        <a href="{% url 'MyPost' %}">我的啟事</a>
+                                    </li>
                                 </ul>
                             {% else %}
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
@@ -70,7 +73,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-sm-2">
                     <div class="list-group">
                         <a href="{% url 'FindMasterPost' %}?animal={{ "all" }}" class="list-group-item" id="id_animal_all">全部</a>
                         <a href="{% url 'FindMasterPost' %}?animal={{ "狗" }}" class="list-group-item" id="id_animal_狗">狗</a>
@@ -81,14 +84,14 @@
                     </div>
                 </div>
 
-                <div class="col-md-9 ">
+                <div class="col-sm-9">
                     <legend>尋主啟事</legend>
                     {% for mylostnotice in postlist %}
-                        <div class="col-md-12 " id="div-data" style="background-color: #F5F5F5">
-                            <div class="col-md-3" style="background-color: #F5F5F5">
+                        <div class="col-sm-12 " id="div-data" style="background-color: #F5F5F5">
+                            <div class="col-sm-3" style="background-color: #F5F5F5">
                                 <img src="/media/{{mylostnotice.petimg}}" alt="" id="pic"/>
                             </div>
-                            <div class="col-md-9 ">
+                            <div class="col-sm-9 ">
                                 <table class="table" frame=void>
                                     <tbody>
                                         <tr>
@@ -105,13 +108,13 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div class="col-md-12 ">
+                                <div class="col-sm-12 ">
                                     <a class="readmore" href="{% url 'Detail' %}?id={{ mylostnotice.id }}">Read More</a>
                                     <!--button type="button" class="btn btn-default btn-readmore">Read More</button-->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 ">
+                        <div class="col-sm-12 ">
                             <hr>
                         </div>
                     {% empty %}

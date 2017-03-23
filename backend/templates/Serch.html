@@ -20,7 +20,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-sm-12">
                     <!--導航列-->
                     <ul class="nav nav-tabs">
                         <li>
@@ -49,6 +49,9 @@
                                     <li>
                                         <a href="{% url 'ChangePassword' %}">會員密碼修改</a>
                                     </li>
+                                    <li>
+                                        <a href="{% url 'MyPost' %}">我的啟事</a>
+                                    </li>
                                 </ul>
                             {% else %}
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
@@ -71,13 +74,14 @@
             </div>
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-sm-3">
                     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                             <legend>搜索條件</legend>
+
                             <div class="form-group">
-                                <label class="col-sm-3 control-label"><font color="red">*</font> 寵物狀態：</label>
-                                <div class="col-sm-6">
+                                <label class="col-sm-4 control-label"><font color="red">*</font> 寵物狀態：</label>
+                                <div class="col-sm-8">
                                     <select class="form-control" name="flag" id="input_flag"> 
                                         <option value="">不限</option>
                                         <option value="1">走失</option>
@@ -87,8 +91,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="input_animal" class="col-sm-3 control-label"><font color="red">*</font> 寵物類別：</label>
-                                <div class="col-sm-6">
+                                <label for="input_animal" class="col-sm-4 control-label"><font color="red">*</font> 寵物類別：</label>
+                                <div class="col-sm-8">
                                     <select class="form-control" name="animal" id="input_animal"> 
                                         <option value="">不限</option>
                                         <option value="狗" >狗</option>
@@ -101,8 +105,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="input_PetType" class="col-sm-3 control-label"><font color="red">*</font> 寵物品種：</label>
-                                <div class="col-sm-6">
+                                <label for="input_PetType" class="col-sm-4 control-label"><font color="red">*</font> 寵物品種：</label>
+                                <div class="col-sm-8">
                                     <select class="form-control" name="pettype" id="input_PetType">
                                         <option value="">不限</option>
                                     </select>
@@ -110,17 +114,16 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="input_PetID" class="col-sm-3 control-label">寵物晶片號碼：</label>
-                                <div class="col-sm-6">
+                                <label for="input_PetID" class="col-sm-4 control-label">寵物晶片號碼：</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" name="petid" id="input_PetID">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label"><font color="red">*</font> 寵物性別：</label>
-                                <div class="col-sm-6">
+                                <label class="col-sm-4 control-label"><font color="red">*</font> 寵物性別：</label>
+                                <div class="col-sm-8">
                                     <select class="form-control" name="petgender" id="input_PetGender"> 
-                                        <option value="0" selected disabled="true">請選擇</option>
                                         <option value="">不限</option>
                                         <option value="公">公</option>
                                         <option value="母">母</option>
@@ -129,8 +132,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label"><font color="red">*</font> 寵物體型：</label>
-                                <div class="col-sm-6">
+                                <label class="col-sm-4 control-label"><font color="red">*</font> 寵物體型：</label>
+                                <div class="col-sm-8">
                                     <select class="form-control" name="size" id="input_size"> 
                                         <option value="">不限</option>
                                         <option value="小型 (0-10公斤)">小型 (0-10公斤)</option>
@@ -141,8 +144,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label"><font color="red">*</font> 是否結扎：</label>
-                                <div class="col-sm-6">
+                                <label class="col-sm-4 control-label"><font color="red">*</font> 是否結扎：</label>
+                                <div class="col-sm-8">
                                     <select class="form-control" name="ligation" id="input_ligation"> 
                                         <option value="">不限</option>
                                         <option value="是">是</option>
@@ -152,33 +155,39 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="input_location" class="col-sm-3 control-label"> 丟失/拾獲地點：</label>
-                                <div class="col-sm-6">
+                                <label for="input_location" class="col-sm-4 control-label"> 丟失/拾獲地點：</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" name="location" id="input_location" >
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                    <label class="col-sm-offset-5 col-sm-6">含<font color="red">*</font>項必填</label>
+                                <div class="col-sm-12">
+                                     <label class="btn-right"><font color="red">*</font>為必填欄位</label>
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-sm-offset-5 col-sm-10">
-                                    <button type="submit" class="btn btn-default" id="upload">提交</button>
+                                <div class="col-sm-12">
+                                    <div class="btn-right">
+                                        <button type="button" class="btn btn-default" id="clean">清空</button>
+                                        <button type="submit" class="btn btn-default" id="upload">提交</button>
+                                    </div>
                                 </div>
                             </div>
+
                         <!--/fieldset-->
                     </form>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-sm-9">
                     <legend>搜索結果</legend>
                     {% for mylostnotice in postlist %}
-                        <div class="col-md-12 " id="div-data" style="background-color: #F5F5F5">
-                            <div class="col-md-3" style="background-color: #F5F5F5">
+                        <div class="col-sm-12 " id="div-data-2" style="background-color: #F5F5F5">
+                            <div class="col-sm-3" style="background-color: #F5F5F5">
                                 <img src="/media/{{mylostnotice.petimg}}" alt="" id="pic"/>
                             </div>
-                            <div class="col-md-9 ">
+                            <div class="col-sm-9 ">
                                 <table class="table" frame=void>
                                     <tbody>
                                         <tr>
@@ -197,18 +206,22 @@
                                             <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物品種：  {{ mylostnotice.pettype }}</td>
                                         </tr>
                                         <tr>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    寵物體型：  {{ mylostnotice.size }}</td>
+                                            <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    是否結扎：  {{ mylostnotice.ligation }}</td>
+                                        </tr>
+                                        <tr>
                                             <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    走失地點：  {{ mylostnotice.location }}</td>
                                             <td><img src="/static/images/logo.png" alt="" id="logo-small"/>    走失日期：  {{ mylostnotice.time|date:"Y-m-d" }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div class="col-md-12 ">
+                                <div class="col-sm-12 ">
                                     <a class="readmore" href="{% url 'Detail' %}?id={{ mylostnotice.id }}">Read More</a>
                                     <!--button type="button" class="btn btn-default btn-readmore">Read More</button-->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 ">
+                        <div class="col-sm-12 ">
                             <hr>
                         </div>
                     {% empty %}
@@ -246,10 +259,73 @@
         <script type="text/javascript">
 
             $(document).ready(function(){
-                $('#input_animal').val('')
-                $('#input_PetGender').val('')
-                $('#input_size').val('')
-                $('#input_ligation').val('')
+                $('#input_flag').val('{{ flag }}');
+                $('#input_PetID').val('{{ petid }}');
+                $('#input_PetGender').val('{{ petgender }}');
+                $('#input_size').val('{{ size }}');
+                $('#input_ligation').val('{{ ligation }}');
+                $('#input_location').val('{{ location }}');
+
+                switch ('{{ animal }}'){
+                    case "": 
+                        $('#input_animal').val('');
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_PetType").style.display="";
+                        $('#input_PetType').append($("<option value=''>不限</option>"));
+                        break;
+                    case "狗": 
+                        $('#input_animal').val('狗');
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_PetType").style.display="";
+                        var array = ["臘腸", "柴犬", "柯基", "巴哥", "比熊", "西施", "杜賓", "沙皮", "秋田", "貴賓", "獒犬", "喜樂蒂", "哈士奇",
+                        "米克斯", "拉不拉多", "黃金獵犬", "馬爾濟斯", "阿拉斯加", "中華田園", "其他"];
+                        $('#input_PetType').append($("<option value=''>不限</option>"));
+                        //利用each遍歷array中的值並將每個值新增到input_PetType中
+                        $.each(array, function(i, val) {
+                            $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
+                        });
+                        break;
+                    case "貓": 
+                        $('#input_animal').val('貓');
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_PetType").style.display="";
+                        var array = ["波斯", "暹羅", "布偶", "折耳", "米克斯", "美國短毛", "英國短毛", "挪威森林", "北美洲", "南極洲", "中華田園", "其他"];
+                        $('#input_PetType').append($("<option value=''>不限</option>"));
+                        //利用each遍歷array中的值並將每個值新增到input_PetType中
+                        $.each(array, function(i, val) {
+                            $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
+                        });      
+                        break;
+                    case "鳥": 
+                        $('#input_animal').val('鳥');
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_PetType").style.display="";
+                        var array = ["鴿子", "文鳥", "十姊妹", "綠繡眼", "和尚鸚鵡", "雞尾鸚鵡", "虎皮鸚鵡", "折衷鸚鵡", "太平洋鸚哥", "其他"];
+                        $('#input_PetType').append($("<option value=''>不限</option>"));
+                        //利用each遍歷array中的值並將每個值新增到input_PetType中
+                        $.each(array, function(i, val) {
+                            $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
+                        });      
+                        break;
+                    case "倉鼠": 
+                        $('#input_animal').val('倉鼠');
+                        $("#input_PetType option").remove();
+                        document.getElementById("input_PetType").style.display="";
+                        var array = ["黃金鼠", "一線鼠", "三線鼠", "老公公鼠", "其他"];
+                        $('#input_PetType').append($("<option value=''>不限</option>"));
+                        //利用each遍歷array中的值並將每個值新增到input_PetType中
+                        $.each(array, function(i, val) {
+                            $("#input_PetType").append($("<option value='" + array[i] + "'>" + array[i] + "</option>"));
+                        });      
+                        break;
+                    case "其他動物": 
+                        $('#input_animal').val('其他動物');
+                        $("#input_PetType option").remove();
+                        $('#input_PetType').append($("<option value='其他'>其他</option>"));
+                        break;
+                }
+                $('#input_PetType').val('{{ pettype }}');
+                
             });
 
             $("#input_animal").change(function(){
@@ -305,6 +381,18 @@
                         $('#input_PetType').append($("<option value='其他'>其他</option>"));
                         break;
                 }
+            });
+
+            $("#clean").click(function(){
+                $('#input_flag').val('');
+                $('#input_PetID').val('');
+                $('#input_PetGender').val('');
+                $('#input_size').val('');
+                $('#input_ligation').val('');
+                $('#input_location').val('');
+                $('#input_animal').val('');
+                $('#input_PetType').append($("<option value=''>不限</option>"));
+                $('#input_PetType').val('');
             });
         </script>
     </body>

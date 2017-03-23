@@ -16,6 +16,14 @@ body {
     margin: 5px 5px  5px 5px;
 }
 
+#div-data-2 {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #F5F5F5;
+    padding:35px 5px 5px 5px;
+    margin: 5px 5px  5px 5px;
+}
+
 #div-logo {
     height: 500px;
     position: relative;

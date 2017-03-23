@@ -20,7 +20,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-sm-12">
                     <!--導航列-->
                     <ul class="nav nav-tabs">
                         <li>
@@ -49,6 +49,9 @@
                                     <li>
                                         <a href="{% url 'ChangePassword' %}">會員密碼修改</a>
                                     </li>
+                                    <li>
+                                        <a href="{% url 'MyPost' %}">我的啟事</a>
+                                    </li>
                                 </ul>
                             {% else %}
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
@@ -67,21 +70,21 @@
             </div>
 
             <div class="row">
-                <div class="col-md-4 body-main">
+                <div class="col-sm-4 body-main">
                     <img class="img-responsive center-block" id="logo" alt="Logo Image Of Paws" src="/static/images/logo.png">
                 </div>
-                <div class="col-md-8 body-main">
+                <div class="col-sm-8 body-main">
                         <legend>寵物資訊</legend>
 
-                        <div class="col-md-12">
+                        <div class="col-sm-12">
                             <img src="/media/{{mylostnotice.petimg}}" alt="" id="pic-2"/>
                         </div>
 
-                         <div class="col-md-12">
+                         <div class="col-sm-12">
                             <h1>                       </h1>
                         </div>
 
-                        <div class="col-md-10 col-sm-offset-1">
+                        <div class="col-sm-10 col-sm-offset-1">
                             <table class="table" frame=void>
                                     <tbody>
                                         <tr>
@@ -129,7 +132,14 @@
                                         </tr>
                                     </tbody>
                             </table>
-                            <input class="btn btn-default btn-right" type ="button" onclick="history.back()" value="返回列表"></input>
+                            <div class="col-sm-12">
+                                <div class="btn-right">
+                                    <a href="{% url 'DeletePost' %}?id={{ mylostnotice.id }}"><button type="button" class="btn btn-default" id="delete">刪除啟事</button></a>
+                                    <a href="{% url 'ChangePost' %}?id={{ mylostnotice.id }}"><button type="button" class="btn btn-default" id="change">修改啟事</button></a>
+                                    <input class="btn btn-default" type ="button" onclick="history.back()" value="返回列表"></input>
+                                </div>
+                            </div>
+                            
                         </div>
                 </div>
             </div>
@@ -138,6 +148,15 @@
         <script src="/static/js/bootstrap.min.js"></script>
         <script src="/static/js/scripts.js"></script>
         <script type="text/javascript">
+            $(document).ready(function(){
+                if ('{{ mylostnotice.poster }}' == '{{ user }}') {
+                    document.getElementById("delete").style.display="";
+                    document.getElementById("change").style.display="";
+                } else {
+                    document.getElementById("delete").style.display="none";
+                    document.getElementById("change").style.display="none";
+                }
+            });
         </script>
     </body>
 </html>
