@@ -8,7 +8,7 @@
 
         <title>Paws</title>
 
-        <meta name="description" content="FindMaster page of 'Paws'">
+        <meta name="description" content="Serch page of 'Paws'">
         <meta name="author" content="Intion Lee">
 
         <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,6 @@
     </head>
 
     <body>
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
@@ -54,7 +53,7 @@
                                     </li>
                                 </ul>
                             {% else %}
-                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">用戶請登入<strong class="caret"></strong></a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a href="{% url 'Login' %}">登入</a>
@@ -75,108 +74,106 @@
 
             <div class="row">
                 <div class="col-sm-3">
-                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" action="" method="post">
                         {% csrf_token %}
-                            <legend>搜索條件</legend>
+                        <legend>搜索條件</legend>
 
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label"><font color="red">*</font> 寵物狀態：</label>
-                                <div class="col-sm-8">
-                                    <select class="form-control" name="flag" id="input_flag"> 
-                                        <option value="">不限</option>
-                                        <option value="1">走失</option>
-                                        <option value="2">拾獲</option>
-                                    </select>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><font color="red">*</font> 寵物狀態：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="flag" id="input_flag"> 
+                                    <option value="">不限</option>
+                                    <option value="1">走失</option>
+                                    <option value="2">拾獲</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input_animal" class="col-sm-4 control-label"><font color="red">*</font> 寵物類別：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="animal" id="input_animal"> 
+                                    <option value="">不限</option>
+                                    <option value="狗" >狗</option>
+                                    <option value="貓">貓</option>
+                                    <option value="鳥">鳥</option>
+                                    <option value="倉鼠">倉鼠</option>
+                                    <option value="其他動物">其他動物</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input_PetType" class="col-sm-4 control-label"><font color="red">*</font> 寵物品種：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="pettype" id="input_PetType">
+                                    <option value="">不限</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input_PetID" class="col-sm-4 control-label">寵物晶片號碼：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="petid" id="input_PetID">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><font color="red">*</font> 寵物性別：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="petgender" id="input_PetGender"> 
+                                    <option value="">不限</option>
+                                    <option value="公">公</option>
+                                    <option value="母">母</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><font color="red">*</font> 寵物體型：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="size" id="input_size"> 
+                                    <option value="">不限</option>
+                                    <option value="小型 (0-10公斤)">小型 (0-10公斤)</option>
+                                    <option value="中型 (10-20公斤)">中型 (10-20公斤)</option>
+                                    <option value="中型 (20公斤以上)">中型 (20公斤以上)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><font color="red">*</font> 是否結扎：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="ligation" id="input_ligation"> 
+                                    <option value="">不限</option>
+                                    <option value="是">是</option>
+                                    <option value="否">否</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input_location" class="col-sm-4 control-label"> 丟失/拾獲地點：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="location" id="input_location" >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                 <label class="btn-right"><font color="red">*</font>為必填欄位</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="btn-right">
+                                    <button type="button" class="btn btn-default" id="clean">清空</button>
+                                    <button type="submit" class="btn btn-default" id="upload">提交</button>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="input_animal" class="col-sm-4 control-label"><font color="red">*</font> 寵物類別：</label>
-                                <div class="col-sm-8">
-                                    <select class="form-control" name="animal" id="input_animal"> 
-                                        <option value="">不限</option>
-                                        <option value="狗" >狗</option>
-                                        <option value="貓">貓</option>
-                                        <option value="鳥">鳥</option>
-                                        <option value="倉鼠">倉鼠</option>
-                                        <option value="其他動物">其他動物</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="input_PetType" class="col-sm-4 control-label"><font color="red">*</font> 寵物品種：</label>
-                                <div class="col-sm-8">
-                                    <select class="form-control" name="pettype" id="input_PetType">
-                                        <option value="">不限</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="input_PetID" class="col-sm-4 control-label">寵物晶片號碼：</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="petid" id="input_PetID">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label"><font color="red">*</font> 寵物性別：</label>
-                                <div class="col-sm-8">
-                                    <select class="form-control" name="petgender" id="input_PetGender"> 
-                                        <option value="">不限</option>
-                                        <option value="公">公</option>
-                                        <option value="母">母</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label"><font color="red">*</font> 寵物體型：</label>
-                                <div class="col-sm-8">
-                                    <select class="form-control" name="size" id="input_size"> 
-                                        <option value="">不限</option>
-                                        <option value="小型 (0-10公斤)">小型 (0-10公斤)</option>
-                                        <option value="中型 (10-20公斤)">中型 (10-20公斤)</option>
-                                        <option value="中型 (20公斤以上)">中型 (20公斤以上)</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label"><font color="red">*</font> 是否結扎：</label>
-                                <div class="col-sm-8">
-                                    <select class="form-control" name="ligation" id="input_ligation"> 
-                                        <option value="">不限</option>
-                                        <option value="是">是</option>
-                                        <option value="否">否</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="input_location" class="col-sm-4 control-label"> 丟失/拾獲地點：</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="location" id="input_location" >
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                     <label class="btn-right"><font color="red">*</font>為必填欄位</label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <div class="btn-right">
-                                        <button type="button" class="btn btn-default" id="clean">清空</button>
-                                        <button type="submit" class="btn btn-default" id="upload">提交</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        <!--/fieldset-->
+                        </div>
                     </form>
                 </div>
 
@@ -217,13 +214,14 @@
                                 </table>
                                 <div class="col-sm-12 ">
                                     <a class="readmore" href="{% url 'Detail' %}?id={{ mylostnotice.id }}">Read More</a>
-                                    <!--button type="button" class="btn btn-default btn-readmore">Read More</button-->
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-sm-12 ">
                             <hr>
                         </div>
+
                     {% empty %}
                         <div class="well">
                             <h1 class="text-danger text-center">查無資料</h2>
@@ -257,7 +255,6 @@
         <script src="/static/js/bootstrap.min.js"></script>
         <script src="/static/js/scripts.js"></script>
         <script type="text/javascript">
-
             $(document).ready(function(){
                 $('#input_flag').val('{{ flag }}');
                 $('#input_PetID').val('{{ petid }}');

@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^MyPost/$', views.MyPost, name= 'MyPost'),
     url(r'^DeletePost/$', views.DeletePost, name= 'DeletePost'),
     url(r'^ChangePost/$', views.ChangePost, name= 'ChangePost'),
+    url(r'^ForgetPassword/$', views.ForgetPassword, name= 'ForgetPassword'),
 ]

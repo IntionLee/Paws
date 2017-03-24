@@ -12,6 +12,8 @@ from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django import forms
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.mail import send_mail
+import random, string
 from backend.models import  MyUser
 from backend.models import  MyLostNotice
 
@@ -384,6 +386,32 @@ def ChangePost(req):
 		'mylostnotice': mylostnotice,
 	}
 	return render(req, 'ChangePost.html', content)
+
+def ForgetPassword(req):
+	if req.user.is_authenticated():
+		user = req.user
+		return HttpResponseRedirect(reverse('HomePage'))
+	user = None
+	state = None
+	if req.method == 'POST':
+		email = req.POST.get('email', '')
+		if email == '':
+			state ='not_exist'
+		try:
+			myuser = User.objects.get(email=email)
+			length = 16
+			random_str = ''.join([random.choice(string.ascii_letters) for i in range(length)])
+			myuser.set_password(random_str)
+			myuser.save()
+			send_mail(u'Paws-帳號/密碼找回', u'帳號：'+myuser.username+'\n'+u'密碼：'+random_str, '2891122052@qq.com', [email], fail_silently=False)
+			state = 'success'
+		except User.DoesNotExist:
+			state ='not_exist'
+	content = {
+		'user': user,
+		'state': state,
+	}
+	return render(req, 'ForgetPassword.html', content)
 
 
 def DeletePost(req):

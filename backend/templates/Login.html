@@ -53,7 +53,7 @@
                                     </li>
                                 </ul>
                             {% else %}
-                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">用戶請登入<strong class="caret"></strong></a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a href="{% url 'Login' %}">登入</a>
@@ -76,6 +76,14 @@
 
             <div class="row">
                 <div class="col-sm-12">
+                    {% if state == 'not_exist_or_password_error' %}
+                        <div class="well col-sm-4 col-sm-offset-4">
+                            <h4 class="text-danger text-center">帳號/密碼錯誤</h4>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-sm-12">
                     <form class="form-horizontal center" id="login-form" action="#" method="post" role="form">
                         <div class="form-group"> 
                             <label for="input_username" class="col-sm-4 control-label">帳號：</label>
@@ -91,17 +99,11 @@
                             </div>
                         </div>
                         
-                        {% if state == 'not_exist_or_password_error' %}
-                            <div class="form-group">
-                                <label class="col-sm-offset-4 col-sm-12"><font color="red">帳號/密碼錯誤</font></label>
-                            </div>
-                        {% endif %}
-
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="btn-right">
                                     <button type="submit" class="btn btn-default">登入</button>
-                                    <button type="button" class="btn btn-default" id="forget_password">忘记密碼</button>
+                                    <a href="{% url 'ForgetPassword' %}"><button type="button" class="btn btn-default" id="forget_password">忘记密碼</button></a>
                                 </div>
                             </div>
                         </div>

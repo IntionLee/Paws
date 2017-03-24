@@ -54,7 +54,7 @@
                                     </li>
                                 </ul>
                             {% else %}
-                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">用户请登入<strong class="caret"></strong></a>
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">用戶請登入<strong class="caret"></strong></a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a href="{% url 'Login' %}">登入</a>
@@ -94,148 +94,146 @@
 
                     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <fieldset>
-                            <legend>丟失寵物資訊</legend>
+                        <legend>丟失寵物資訊</legend>
 
-                            <div class="form-group">
-                                <label for="input_petimg" class="col-sm-3 control-label"><font color="red">*</font> 寵物照片上傳：</label>
-                                <div class="col-sm-6">
-                                    <input type="file" name="petimg" id="input_petimg" required>
-                                </div>
+                        <div class="form-group">
+                            <label for="input_petimg" class="col-sm-3 control-label"><font color="red">*</font> 寵物照片上傳：</label>
+                            <div class="col-sm-6">
+                                <input type="file" name="petimg" id="input_petimg" required>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="input_animal" class="col-sm-3 control-label"><font color="red">*</font> 寵物類別：</label>
-                                <div class="col-sm-6">
-                                    <select class="form-control" name="animal" id="input_animal" required> 
-                                        <option value="" selected disabled="true">請選擇</option>
-                                        <option value="狗" >狗</option>
-                                        <option value="貓">貓</option>
-                                        <option value="鳥">鳥</option>
-                                        <option value="倉鼠">倉鼠</option>
-                                        <option value="其他動物">其他動物</option>
-                                    </select>
-                                    <input style="display: none;" type="text" class="form-control" placeholder="請填寫寵物類別" name="animal2" id="input_animal2">
-                                </div>
+                        <div class="form-group">
+                            <label for="input_animal" class="col-sm-3 control-label"><font color="red">*</font> 寵物類別：</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="animal" id="input_animal" required> 
+                                    <option value="" selected disabled="true">請選擇</option>
+                                    <option value="狗" >狗</option>
+                                    <option value="貓">貓</option>
+                                    <option value="鳥">鳥</option>
+                                    <option value="倉鼠">倉鼠</option>
+                                    <option value="其他動物">其他動物</option>
+                                </select>
+                                <input style="display: none;" type="text" class="form-control" placeholder="請填寫寵物類別" name="animal2" id="input_animal2">
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="input_PetType" class="col-sm-3 control-label"><font color="red">*</font> 寵物品種：</label>
-                                <div class="col-sm-6">
-                                    <select class="form-control" name="pettype" id="input_PetType"></select>
-                                    <input style="display: none;" type="text" class="form-control" placeholder="請填寫寵物品種" name="pettype2" id="input_PetType2">
-                                </div>
+                        <div class="form-group">
+                            <label for="input_PetType" class="col-sm-3 control-label"><font color="red">*</font> 寵物品種：</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="pettype" id="input_PetType"></select>
+                                <input style="display: none;" type="text" class="form-control" placeholder="請填寫寵物品種" name="pettype2" id="input_PetType2">
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="input_PetID" class="col-sm-3 control-label">寵物晶片號碼：</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="petid" id="input_PetID">
-                                </div>
+                        <div class="form-group">
+                            <label for="input_PetID" class="col-sm-3 control-label">寵物晶片號碼：</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="petid" id="input_PetID">
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="input_PetColor" class="col-sm-3 control-label">毛色/花色：</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="petcolor" id="input_PetColor">
-                                </div>
+                        <div class="form-group">
+                            <label for="input_PetColor" class="col-sm-3 control-label">毛色/花色：</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="petcolor" id="input_PetColor">
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label"><font color="red">*</font> 寵物性別：</label>
-                                <div class="col-sm-6">
-                                    <select class="form-control" name="petgender" id="input_PetGender" required> 
-                                        <option value="" selected disabled="true">請選擇</option>
-                                        <option value="公">公</option>
-                                        <option value="母">母</option>
-                                        <option value="不清楚">不清楚</option>
-                                    </select>
-                                </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><font color="red">*</font> 寵物性別：</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="petgender" id="input_PetGender" required> 
+                                    <option value="" selected disabled="true">請選擇</option>
+                                    <option value="公">公</option>
+                                    <option value="母">母</option>
+                                    <option value="不清楚">不清楚</option>
+                                </select>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label"><font color="red">*</font> 寵物體型：</label>
-                                <div class="col-sm-6">
-                                    <select class="form-control" name="size" id="input_size" required> 
-                                        <option value="" selected disabled="true">請選擇</option>
-                                        <option value="小型 (0-10公斤)">小型 (0-10公斤)</option>
-                                        <option value="中型 (10-20公斤)">中型 (10-20公斤)</option>
-                                        <option value="中型 (20公斤以上)">中型 (20公斤以上)</option>
-                                    </select>
-                                </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><font color="red">*</font> 寵物體型：</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="size" id="input_size" required> 
+                                    <option value="" selected disabled="true">請選擇</option>
+                                    <option value="小型 (0-10公斤)">小型 (0-10公斤)</option>
+                                    <option value="中型 (10-20公斤)">中型 (10-20公斤)</option>
+                                    <option value="中型 (20公斤以上)">中型 (20公斤以上)</option>
+                                </select>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label"><font color="red">*</font> 是否結扎：</label>
-                                <div class="col-sm-6">
-                                    <select class="form-control" name="ligation" id="input_ligation" required> 
-                                        <option value=""  selected disabled="true">請選擇</option>
-                                        <option value="是">是</option>
-                                        <option value="否">否</option>
-                                        <option value="不清楚">不清楚</option>
-                                    </select>
-                                </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><font color="red">*</font> 是否結扎：</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="ligation" id="input_ligation" required> 
+                                    <option value=""  selected disabled="true">請選擇</option>
+                                    <option value="是">是</option>
+                                    <option value="否">否</option>
+                                    <option value="不清楚">不清楚</option>
+                                </select>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="input_PetFeature" class="col-sm-3 control-label">寵物特徵/其他備註：</label>
-                                <div class="col-sm-6">
-                                    <textarea type="text" class="form-control" rows="5" name="petfeature" id="input_PetFeature"></textarea>
-                                </div>
+                        <div class="form-group">
+                            <label for="input_PetFeature" class="col-sm-3 control-label">寵物特徵/其他備註：</label>
+                            <div class="col-sm-6">
+                                <textarea type="text" class="form-control" rows="5" name="petfeature" id="input_PetFeature"></textarea>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="input_location" class="col-sm-3 control-label"><font color="red">*</font> 丟失地點：</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="location" id="input_location" required>
-                                </div>
+                        <div class="form-group">
+                            <label for="input_location" class="col-sm-3 control-label"><font color="red">*</font> 丟失地點：</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="location" id="input_location" required>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label"><font color="red">*</font> 丟失日期：</label>
-                                <div class="col-sm-6">
-                                    <div class="input-group date form_date col-sm-8" data-date="" data-date-format="yyyy-mm-dd" data-link-field="input_time" data-link-format="yyyy-mm-dd">
-                                        <input class="form-control" size="16" type="text" value="" readonly>
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                                    </div>
-                                    <input type="hidden" id="input_time" name="time" required><br/>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><font color="red">*</font> 丟失日期：</label>
+                            <div class="col-sm-6">
+                                <div class="input-group date form_date col-sm-8" data-date="" data-date-format="yyyy-mm-dd" data-link-field="input_time" data-link-format="yyyy-mm-dd">
+                                    <input class="form-control" size="16" type="text" value="" readonly>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                 </div>
+                                <input type="hidden" id="input_time" name="time" required><br/>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="input_ContactName" class="col-sm-3 control-label"><font color="red">*</font> 聯絡人：</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="contactname" id="input_ContactName" required>
-                                </div>
+                        <div class="form-group">
+                            <label for="input_ContactName" class="col-sm-3 control-label"><font color="red">*</font> 聯絡人：</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="contactname" id="input_ContactName" required>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="input_phonenumber" class="col-sm-3 control-label"><font color="red">*</font> 聯絡電話：</label>
-                                <div class="col-sm-6">
-                                    <input type="tel" class="form-control" name="phonenumber" id="input_phonenumber" required>
-                                </div>
+                        <div class="form-group">
+                            <label for="input_phonenumber" class="col-sm-3 control-label"><font color="red">*</font> 聯絡電話：</label>
+                            <div class="col-sm-6">
+                                <input type="tel" class="form-control" name="phonenumber" id="input_phonenumber" required>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="input_email" class="col-sm-3 control-label"><font color="red">*</font> 聯絡Email：</label>
-                                <div class="col-sm-6">
-                                    <input type="email" class="form-control" name="email" id="input_email" required>
-                                </div>
-                            </div> 
-
-                            <div class="form-group">
-                                <div class="col-sm-9">
-                                     <label class="btn-right"><font color="red">*</font>為必填欄位</label>
-                                </div>
+                        <div class="form-group">
+                            <label for="input_email" class="col-sm-3 control-label"><font color="red">*</font> 聯絡Email：</label>
+                            <div class="col-sm-6">
+                                <input type="email" class="form-control" name="email" id="input_email" required>
                             </div>
+                        </div> 
 
-                            <div class="form-group">
-                                <div class="col-sm-9">
-                                    <button type="submit" class="btn btn-default btn-right" id="upload">提交</button>
-                                </div>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                 <label class="btn-right"><font color="red">*</font>為必填欄位</label>
                             </div>
-                        </fieldset>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <button type="submit" class="btn btn-default btn-right" id="upload">提交</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
