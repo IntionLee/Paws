@@ -32,14 +32,17 @@ def SignUp(req):
 		username = req.POST.get('username', '')
 		password = req.POST.get('password', '')
 		password2 = req.POST.get('password2', '')
+		email=req.POST.get('email', '')
 
 		if password != password2:
 			state = 'repeat_error'
 		else:
 			if User.objects.filter(username = username):
 				state = 'user_exist'
+			elif User.objects.filter(email = email):
+				state = 'email_exist'
 			else:
-				new_user = User.objects.create_user(username=username, password=password, email=req.POST.get('email', ''))
+				new_user = User.objects.create_user(username=username, password=password, email=email)
 				new_user.save()
 				new_my_user = MyUser(user=new_user, name=req.POST.get('name', ''), pubname=req.POST.get('pubname', ''), phone=req.POST.get('phone', ''))
 				new_my_user.save()

@@ -85,6 +85,10 @@
                         <div class="well">
                             <h4 class="text-danger text-center">用戶名已存在</h4>
                         </div>
+                    {% elif state == 'email_exist' %}
+                        <div class="well">
+                            <h4 class="text-danger text-center">Email已存在</h4>
+                        </div>
                     {% endif %}
                     <form class="form-horizontal" action="#" method="post">
                         {% csrf_token %}
