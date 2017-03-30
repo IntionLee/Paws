@@ -73,19 +73,20 @@
                     <img class="center" id="logo" alt="Logo Image Of Paws" src="/static/images/logo.png">
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <ul class="button-list center">
-                        <li>
-                            <a href="{% url 'FindMaster' %}"><button class="btn btn-default">拾獲寵物</button></a>
-                        </li>
-                        <li>
-                            <a href="{% url 'FindPet' %}"><button class="btn btn-default">尋找寵物</button></a>
-                        </li>
-                    </ul>
+            {% if user %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ul class="button-list center">
+                            <li>
+                                <a href="{% url 'FindMaster' %}"><button class="btn btn-default">拾獲寵物</button></a>
+                            </li>
+                            <li>
+                                <a href="{% url 'FindPet' %}"><button class="btn btn-default">尋找寵物</button></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
 
         <script src="/static/js/jquery.min.js"></script>
