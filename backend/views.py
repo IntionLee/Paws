@@ -132,17 +132,17 @@ def FindPet(req):
 	if req.user.is_authenticated():
 		user = req.user
 		state = None
+		petid = ''
+		petcolor = ''
+		petgender = ''
+		size = ''
+		ligation = ''
+		petfeature = ''
+		location = ''
+		contactname = ''
+		phonenumber = ''
+		email = ''
 		if req.method == 'POST':
-			if req.POST.get('animal', '') == u'其他動物':
-				animal = req.POST.get('animal', '')+'-'+req.POST.get('animal2', '')
-				pettype = req.POST.get('pettype', '')+'-'+req.POST.get('pettype2', '')
-			elif req.POST.get('pettype', '') == u'其他':
-				animal = req.POST.get('animal', '')
-				pettype = req.POST.get('pettype', '')+'-'+req.POST.get('pettype2', '')
-			else:
-				animal = req.POST.get('animal', '')
-				pettype = req.POST.get('pettype', '')
-			flag = 1
 			petimg = req.FILES.get('petimg')
 			petid = req.POST.get('petid', '')
 			petcolor = req.POST.get('petcolor', '')
@@ -156,13 +156,41 @@ def FindPet(req):
 			phonenumber = req.POST.get('phonenumber', '')
 			email = req.POST.get('email', '')
 
-			new_lost_notice = MyLostNotice(flag=flag, poster=user, petimg=petimg, animal=animal, pettype=pettype, petid=petid, petcolor=petcolor, petgender=petgender, size=size
-				, ligation=ligation, petfeature=petfeature, location=location, time=time, contactname=contactname, phonenumber=phonenumber, email=email)
-			new_lost_notice.save()
-			state = 'success'
+			if req.POST.get('animal', '') == u'其他動物':
+				if req.POST.get('animal2', '') == '' or req.POST.get('pettype2', '') == '':
+					state = 'warn1'
+			elif req.POST.get('pettype', '') == u'其他' and req.POST.get('pettype2', '') == '':
+				state = 'warn2'
+			elif req.POST.get('time', '') == '':
+				state = 'warn0'
+			else:
+				if req.POST.get('animal', '') == u'其他動物':
+					animal = req.POST.get('animal', '')+'-'+req.POST.get('animal2', '')
+					pettype = req.POST.get('pettype', '')+'-'+req.POST.get('pettype2', '')
+				elif req.POST.get('pettype', '') == u'其他':
+					animal = req.POST.get('animal', '')
+					pettype = req.POST.get('pettype', '')+'-'+req.POST.get('pettype2', '')
+				else:
+					animal = req.POST.get('animal', '')
+					pettype = req.POST.get('pettype', '')
+				flag = 1
+				new_lost_notice = MyLostNotice(flag=flag, poster=user, petimg=petimg, animal=animal, pettype=pettype, petid=petid, petcolor=petcolor, petgender=petgender, size=size
+					, ligation=ligation, petfeature=petfeature, location=location, time=time, contactname=contactname, phonenumber=phonenumber, email=email)
+				new_lost_notice.save()
+				state = 'success'
 	else:
 		return HttpResponseRedirect(reverse('HomePage'))
 	content = {
+		'petid':petid,
+		'petcolor':petcolor,
+		'petgender':petgender,
+		'size':size,
+		'ligation':ligation,
+		'petfeature':petfeature,
+		'location':location,
+		'contactname':contactname,
+		'phonenumber':phonenumber,
+		'email':email,
 		'state': state,
 		'user': user
 	}
@@ -172,17 +200,17 @@ def FindMaster(req):
 	if req.user.is_authenticated():
 		user = req.user
 		state = None
+		petid = ''
+		petcolor = ''
+		petgender = ''
+		size = ''
+		ligation = ''
+		petfeature = ''
+		location = ''
+		contactname = ''
+		phonenumber = ''
+		email = ''
 		if req.method == 'POST':
-			if req.POST.get('animal', '') == u'其他動物':
-				animal = req.POST.get('animal', '')+'-'+req.POST.get('animal2', '')
-				pettype = req.POST.get('pettype', '')+'-'+req.POST.get('pettype2', '')
-			elif req.POST.get('pettype', '') == u'其他':
-				animal = req.POST.get('animal', '')
-				pettype = req.POST.get('pettype', '')+'-'+req.POST.get('pettype2', '')
-			else:
-				animal = req.POST.get('animal', '')
-				pettype = req.POST.get('pettype', '')
-			flag = 2
 			petimg = req.FILES.get('petimg')
 			petid = req.POST.get('petid', '')
 			petcolor = req.POST.get('petcolor', '')
@@ -195,14 +223,43 @@ def FindMaster(req):
 			contactname = req.POST.get('contactname', '')
 			phonenumber = req.POST.get('phonenumber', '')
 			email = req.POST.get('email', '')
+			print(petfeature)
 
-			new_lost_notice = MyLostNotice(flag=flag, poster=user, petimg=petimg, animal=animal, pettype=pettype, petid=petid, petcolor=petcolor, petgender=petgender, size=size
-				, ligation=ligation, petfeature=petfeature, location=location, time=time, contactname=contactname, phonenumber=phonenumber, email=email)
-			new_lost_notice.save()
-			state = 'success'
+			if req.POST.get('animal', '') == u'其他動物':
+				if req.POST.get('animal2', '') == '' or req.POST.get('pettype2', '') == '':
+					state = 'warn1'
+			elif req.POST.get('pettype', '') == u'其他' and req.POST.get('pettype2', '') == '':
+				state = 'warn2'
+			elif req.POST.get('time', '') == '':
+				state = 'warn0'
+			else:
+				if req.POST.get('animal', '') == u'其他動物':
+					animal = req.POST.get('animal', '')+'-'+req.POST.get('animal2', '')
+					pettype = req.POST.get('pettype', '')+'-'+req.POST.get('pettype2', '')
+				elif req.POST.get('pettype', '') == u'其他':
+					animal = req.POST.get('animal', '')
+					pettype = req.POST.get('pettype', '')+'-'+req.POST.get('pettype2', '')
+				else:
+					animal = req.POST.get('animal', '')
+					pettype = req.POST.get('pettype', '')
+				flag = 2
+				new_lost_notice = MyLostNotice(flag=flag, poster=user, petimg=petimg, animal=animal, pettype=pettype, petid=petid, petcolor=petcolor, petgender=petgender, size=size
+					, ligation=ligation, petfeature=petfeature, location=location, time=time, contactname=contactname, phonenumber=phonenumber, email=email)
+				new_lost_notice.save()
+				state = 'success'
 	else:
 		return HttpResponseRedirect(reverse('HomePage'))
 	content = {
+		'petid':petid,
+		'petcolor':petcolor,
+		'petgender':petgender,
+		'size':size,
+		'ligation':ligation,
+		'petfeature':petfeature,
+		'location':location,
+		'contactname':contactname,
+		'phonenumber':phonenumber,
+		'email':email,
 		'state': state,
 		'user': user
 	}
@@ -406,7 +463,7 @@ def ForgetPassword(req):
 			random_str = ''.join([random.choice(string.ascii_letters) for i in range(length)])
 			myuser.set_password(random_str)
 			myuser.save()
-			send_mail(u'Paws-帳號/密碼找回', u'帳號：'+myuser.username+'\n'+u'密碼：'+random_str, '2891122052@qq.com', [email], fail_silently=False)
+			send_mail(u'Paws-帳號/密碼找回', u'帳號：'+myuser.username+'\n'+u'密碼：'+random_str, 'paws_forget_password@foxmail.com', [email], fail_silently=False)
 			state = 'success'
 		except User.DoesNotExist:
 			state ='not_exist'
@@ -431,6 +488,6 @@ def DeletePost(req):
 		return HttpResponseRedirect(reverse('HomePage'))
 
 
-def DeleteAllPost(req):
-	MyLostNotice.objects.all().delete() 
-	return HttpResponseRedirect(reverse('HomePage'))
+#def DeleteAllPost(req):
+#	MyLostNotice.objects.all().delete() 
+#	return HttpResponseRedirect(reverse('HomePage'))

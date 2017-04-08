@@ -134,7 +134,7 @@ MEDIA_URL = '/media/'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.qq.com'
-EMAIL_HOST_USER = 'the username of your email'
-EMAIL_HOST_PASSWORD = 'the password of your email'
+EMAIL_HOST_USER = 'paws_forget_password@foxmail.com'
+EMAIL_HOST_PASSWORD = 'pchtsilvjfnvecfh'
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = '2891122052'
+DEFAULT_FROM_EMAIL = 'paws_forget_password@foxmail.com'
