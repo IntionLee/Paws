@@ -81,23 +81,17 @@
                         </div>
                     {% endif %}
 
-                    {% if state == 'warn0' %}
-                        <div id="warn0" class="well">
-                            <h4 class="text-warning text-center">請填寫拾獲時間</h4>
-                        </div>
-                    {% endif %}
+                    <div style="display: none;" id="warn0" class="well">
+                        <h4 class="text-warning text-center">請填寫拾獲時間</h4>
+                    </div>
 
-                    {% if state == 'warn1' %}
-                        <div id="warn1" class="well">
-                            <h4 class="text-warning text-center">請填寫寵物類別及寵物品種</h4>
-                        </div>
-                    {% endif %}
+                    <div style="display: none;" id="warn1" class="well">
+                        <h4 class="text-warning text-center">請填寫寵物類別及寵物品種</h4>
+                    </div>
 
-                    {% if state == 'warn2' %}
-                        <div id="warn2" class="well">
-                            <h4 class="text-warning text-center">請填寫寵物品種</h4>
-                        </div>
-                     {% endif %}
+                    <div style="display: none;" id="warn2" class="well">
+                        <h4 class="text-warning text-center">請填寫寵物品種</h4>
+                    </div>
 
                     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
@@ -136,14 +130,14 @@
                         <div class="form-group">
                             <label for="input_PetID" class="col-sm-3 control-label">寵物晶片號碼：</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="petid" id="input_PetID" value="{{ petid }}">
+                                <input type="text" class="form-control" name="petid" id="input_PetID">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="input_PetColor" class="col-sm-3 control-label">毛色/花色：</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="petcolor" id="input_PetColor" value="{{ petcolor }}">
+                                <input type="text" class="form-control" name="petcolor" id="input_PetColor">
                             </div>
                         </div>
 
@@ -166,7 +160,7 @@
                                     <option value="" selected disabled="true">請選擇</option>
                                     <option value="小型 (0-10公斤)">小型 (0-10公斤)</option>
                                     <option value="中型 (10-20公斤)">中型 (10-20公斤)</option>
-                                    <option value="中型 (20公斤以上)">大型 (20公斤以上)</option>
+                                    <option value="中型 (20公斤以上)">中型 (20公斤以上)</option>
                                 </select>
                             </div>
                         </div>
@@ -186,14 +180,14 @@
                         <div class="form-group">
                             <label for="input_PetFeature" class="col-sm-3 control-label">寵物特徵/其他備註：</label>
                             <div class="col-sm-6">
-                                <textarea type="text" class="form-control" rows="5" name="petfeature" id="input_PetFeature">{{ petfeature }}</textarea>
+                                <textarea type="text" class="form-control" rows="5" name="petfeature" id="input_PetFeature"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="input_location" class="col-sm-3 control-label"><font color="red">*</font> 拾獲地點：</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="location" id="input_location" value="{{ location }}" required>
+                                <input type="text" class="form-control" name="location" id="input_location" required>
                             </div>
                         </div>
 
@@ -205,28 +199,28 @@
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                 </div>
-                                <input type="hidden" id="input_time" name="time" required><br/>
+                                <input style="display: none;" id="input_time" name="time" rule="required;"><br/>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="input_ContactName" class="col-sm-3 control-label"><font color="red">*</font> 聯絡人：</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="contactname" id="input_ContactName" value="{{ contactname }}" required>
+                                <input type="text" class="form-control" name="contactname" id="input_ContactName" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="input_phonenumber" class="col-sm-3 control-label"><font color="red">*</font> 聯絡電話：</label>
                             <div class="col-sm-6">
-                                <input type="tel" class="form-control" name="phonenumber" id="input_phonenumber" value="{{ phonenumber }}" required>
+                                <input type="tel" class="form-control" name="phonenumber" id="input_phonenumber" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="input_email" class="col-sm-3 control-label"><font color="red">*</font> 聯絡Email：</label>
                             <div class="col-sm-6">
-                                <input type="email" class="form-control" name="email" id="input_email" value="{{ email }}" required>
+                                <input type="email" class="form-control" name="email" id="input_email" required>
                             </div>
                         </div> 
 
@@ -238,10 +232,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <div class="btn-right">
-                                    <button type="button" class="btn btn-default" id="clean">清空</button>
-                                    <button type="submit" class="btn btn-default" id="upload">提交</button>
-                                </div>
+                                <button type="submit" class="btn btn-default btn-right" id="upload">提交</button>
                             </div>
                         </div>
                     </form>
@@ -268,9 +259,10 @@
             
             $(document).ready(function(){
                 $('#input_animal').val('')
-                $('#input_PetGender').val('{{ petgender }}')
-                $('#input_size').val('{{ size }}')
-                $('#input_ligation').val('{{ ligation }}')
+                $('#input_PetGender').val('')
+                $('#input_size').val('')
+                $('#input_ligation').val('')
+                document.getElementById("warn3").style.display="";
             });
 
             $("#input_animal").change(function(){
@@ -343,21 +335,33 @@
                 }
             });
 
-            $("#clean").click(function(){
-                $('#input_PetID').val('');
-                $('#input_PetGender').val('');
-                $('#input_size').val('');
-                $('#input_ligation').val('');
-                $('#input_location').val('');
-                $('#input_animal').val('');
-                $("#input_PetType option").remove();
-                $('#input_PetColor').val('');
-                $('#input_ContactName').val('');
-                $('#input_phonenumber').val('');
-                $('#input_email').val('');
-                $('#input_PetFeature').val('');
+            $("#upload").click(function(){
+                if ($("#input_animal").val() == "其他動物" && ($("#input_animal2").val() == "" || $("#input_PetType2").val() == "")) {
+                    document.getElementById("warn0").style.display="none";
+                    document.getElementById("warn1").style.display="";
+                    document.getElementById("warn2").style.display="none";
+                    document.getElementById("warn3").style.display="none";
+                    return false
+                } else if($("#input_PetType").val() == "其他" && $("#input_PetType2").val() == "") {
+                    document.getElementById("warn0").style.display="none";
+                    document.getElementById("warn1").style.display="none";
+                    document.getElementById("warn2").style.display="";
+                    document.getElementById("warn3").style.display="none";
+                    return false
+                } else if ($("#input_time").val() == "") {
+                    document.getElementById("warn0").style.display="";
+                    document.getElementById("warn1").style.display="none";
+                    document.getElementById("warn2").style.display="none";
+                    document.getElementById("warn3").style.display="none";
+                    return false
+                } else {
+                    document.getElementById("warn0").style.display="none";
+                    document.getElementById("warn1").style.display="none";
+                    document.getElementById("warn2").style.display="none";
+                    document.getElementById("warn3").style.display="none";
+                    return true;
+                }
             });
-            
         </script>
     </body>
 </html>
